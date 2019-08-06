@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="kr">
+	<head>
+  <meta charset="UTF-8">
+  <title>LG Air Data Virtualization</title>
+  <style rel="stylesheet">
+      @import url("http://fonts.googleapis.com/css?family=Roboto+Slab");
+      html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
+      html {
+        box-sizing: border-box;
+      }
+      *,
+      *:before,
+      *:after {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 100%;
+        font-family: 'Roboto Slab', serif;
+        line-height: 1.8em;
+        letter-spacing: 0.1em;
+        color: rgb(0, 0, 0);
+        background: #00ced1;
+      }
+      @media screen and (min-width: 600px) {
+        html,
+        body {
+          padding: 0 0px;
+          background: #ffffff;
+        }
+      }
+      h1 {
+        font-size: 2em;
+        line-height: 1.4em;
+        text-align: center;
+        padding: 0.5em;
+      }
+      section {
+        zoom: 1;
+        position: relative;
+        height: auto;
+      }
+      section:after,
+      section:before {
+        content: "";
+        display: table;
+      }
+      section:after {
+        clear: both;
+      }
+      section h4 {
+        background: rgba(0,0,0,0.1);
+        cursor: pointer;
+        border: 1px solid rgba(0,0,0,0.2);
+        border-top: none;
+        padding: 15px 20px;
+      }
+      section h4:first-child {
+        border-top: 1px solid rgba(0,0,0,0.2);
+      }
+      @media screen and (min-width: 300px) {
+        section h4 {
+          position: relative;
+          width: 15%;
+          height: 30%;
+          display: block;
+        }
+      }
+      section ul {
+        zoom: 1;
+        position: relative;
+        height: 100%;
+        min-height: 100%;
+        border: 1px solid rgba(0,0,0,0.2);
+        border-left: none;
+        display: none;
+      }
+      section ul:after,
+      section ul:before {
+        content: "";
+        display: table;
+      }
+      section ul:after {
+        clear: both;
+      }
+      @media screen and (min-width: 600px) {
+        section ul {
+          position: absolute;
+          width: 85%;
+          right: 0;
+          top: 0;
+          padding: 10px 15px;
+        }
+      }
+      section .active {
+        cursor: default;
+        border-bottom: 1px solid rgba(0,0,0,0.2);
+        border-right: none;
+      }
+      @media screen and (min-width: 600px) {
+        section .active {
+          background: rgba(0,0,0,0);
+          border-right: 1px solid rgba(0,0,0,0);
+        }
+      }
+      section .active + ul {
+        display: block;
+      }
+  </style>
+</head>
+
+
+
+
+<body>
+
+  
+
+
+  <br/>
+  <h1>LG Air Data Virtualization</h1>
+  <p style="text-align:right;">
+     <a href="index.html">Logout</a>
+  </p>
+<section>
+    <h4 class="active">Home</h4>
+    <ul>
+      <p>Overview</p>
+      <div>
+        <p>Dataset by Model </p>
+        <svg width="300" height="150" id="svg_2"></svg>
+      </div>
+      
+      <div>
+        <p>Dataset by Test</p>
+        <svg width="300" height="150" id="svg_3"></svg>
+      </div>
+    </ul>
+    <h4>Data Search</h4>
+    <ul>
+      <!--<div id="linechart"></div>-->
+      <div name="test">
+          <h3>■ ID검색</h3>
+          <form name="input" method="post" action="">
+                  ID : <input type="text" name="id" maxlength="10">
+                  <input type="submit" value="검색">
+          </form>
+      </div>
+      <br/>
+      
+      <div name="test2">
+        <form name="data_search" method="post" action="test.html">
+          <h3>■ 데이터 검색 (필수)</h3>
+          분류 : 
+          <select name="index">
+            <option value="Multi V H/P" selected="selected">Multi V H/P</option>
+            <option value="사과">사과</option>
+            <option value="파인애플">파인애플</option>
+          </select>
+          Model 군 : 
+          <select name="model">
+            <option value="Multi V 5" selected="selected">Multi V 5</option>
+            <option value="사과">사과</option>
+            <option value="파인애플">파인애플</option>
+          </select>
+          <br/>
+          <br/>
+          <h3>■ 데이터 상세검색</h3>
+          Model 명 : 
+          <input type="text" name="model_name" maxlength="10" value="-">
+          시험자 : 
+          <input type="text" name="experiant" maxlength="10" value="-">
+          Data ID : 
+          <input type="text" name="data_id" maxlength="10" value="-">
+          <br/>
+          용량 : 
+          <input type="text" name="capacity" maxlength="10" value="-">
+          시험종류 : 
+          <select name="model">
+            <option value="Multi V 5" selected="selected">-</option>
+            <option value="사과">사과</option>
+            <option value="파인애플">파인애플</option>
+          </select>
+          <input type="submit" value="검색">
+        </form>
+      </div>
+
+    </ul>
+    <h4>Option</h4>
+    <ul>
+      <div>
+        <p>temperature : 
+          <select name="temperature">
+            <option value="">온도단위</option>
+            <option value="C">C</option>
+            <option value="F">F</option>
+          </select>
+        </p>
+      </div>
+      
+      <div>
+        <p>Pressure : 
+          <select name="pressure">
+            <option value="">압력단위</option>
+            <option value="kPa">kPa</option>
+            <option value="회사원">Pa</option>
+          </select>
+        </p>
+      </div>
+      
+      <div>
+        <p>Flux : 
+          <select name="flux">
+            <option value="">선속단위</option>
+            <option value="m3/h">m3/h</option>
+            <option value="m3/m">m3/m</option>
+            <option value="m3/s">m3/s</option>
+          </select>
+        </p>
+      </div>
+    </ul>
+    <h4>Manager Mode</h4>
+    <ul>
+        <p>관리자 모드</p>
+        </br>
+        Password
+        <input type="text" name="model_name" maxlength="10" value="-">
+        <input type="submit" value="로그인">
+    </ul>
+    <h4 style="height:500px"></h4>
+    <ul>
+      <li>
+      </li>
+    </ul>
+  </section>
+  
+  
+  <script src="https://d3js.org/d3.v3.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
+  <script>
+    var dataset = [9, 19, 29, 39, 29, 19, 9];
+    var svg_3 = d3.select("#svg_3");
+    for (var i=0; i < dataset.length; i++){
+      svg_3.append("rect")
+      .attr("height", dataset[i])
+      .attr("width", 40)
+      .attr("x", 50 * i)
+      .attr("y", 100 - dataset[i]);
+    }
+    var svg_2 = d3.select("#svg_2");
+    for (var i=0; i < dataset.length; i++){
+      svg_2.append("rect")
+      .attr("height", dataset[i])
+      .attr("width", 40)
+      .attr("x", 50 * i)
+      .attr("y", 100 - dataset[i]);
+    }
+
+
+
+
+    /*
+    var margin = {top: 10, right: 10, bottom: 100, left: 40},
+    margin2 = {top: 430, right: 10, bottom: 20, left: 40},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom,
+    height2 = 500 - margin2.top - margin2.bottom;
+ 
+    var color = d3.scale.category10();
+    
+    var parseDate = d3.time.format("%H:%M:%S").parse;
+    
+    var x = d3.time.scale().range([0, width]),
+        x2 = d3.time.scale().range([0, width]),
+        y = d3.scale.linear().range([height, 0]),
+        y2 = d3.scale.linear().range([height2, 0]);
+    
+    var xAxis = d3.svg.axis().scale(x).orient("bottom"),
+        xAxis2 = d3.svg.axis().scale(x2).orient("bottom"),
+        yAxis = d3.svg.axis().scale(y).orient("left");
+    
+    var brush = d3.svg.brush()
+        .x(x2)
+        .on("brush", brush);
+    
+    var line = d3.svg.line()
+        .defined(function(d) { return !isNaN(d.items); })
+        .interpolate("cubic")
+        .x(function(d) { return x(d.Time); })
+        .y(function(d) { return y(d.items); });
+    
+    var line2 = d3.svg.line()
+        .defined(function(d) { return !isNaN(d.items); })
+        .interpolate("cubic")
+        .x(function(d) {return x2(d.Time); })
+        .y(function(d) {return y2(d.items); });
+    
+    var svg = d3.select('#linechart').append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom);
+    
+    svg.append("defs").append("clipPath")
+        .attr("id", "clip")
+      .append("rect")
+        .attr("width", width)
+        .attr("height", height);
+    
+    var focus = svg.append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+          
+    var context = svg.append("g")
+      .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
+    
+    d3.csv("multiv_5_raw_data_20181231_231050.csv", function(error, data) {
+    
+      color.domain(d3.keys(data[0]).filter(function(key) { return key !== "Time"; }));
+    
+        data.forEach(function(d) {
+          d.Time = parseDate(d.Time);
+        });
+    
+      var sources = color.domain().map(function(name) {
+          return {
+            name: name,
+            values: data.map(function(d) {
+              return {Time: d.Time,
+                      items: +d[name]};
+            })
+          };
+        });
+ 
+    x.domain(d3.extent(data, function(d) { return d.Time; }));
+    y.domain([d3.min(sources, function(c) { return d3.min(c.values, function(v) { return v.items; }); }),
+              d3.max(sources, function(c) { return d3.max(c.values, function(v) { return v.items; }); }) ]);
+    x2.domain(x.domain());
+    y2.domain(y.domain());
+    
+    var focuslineGroups = focus.selectAll("g")
+        .data(sources)
+      .enter().append("g");
+      
+    var focuslines = focuslineGroups.append("path")
+        .attr("class","line")
+        .attr("d", function(d) { return line(d.values); })
+        .style("stroke", function(d) {return color(d.name);})
+        .attr("clip-path", "url(#clip)");
+    
+    focus.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
+ 
+    focus.append("g")
+        .attr("class", "y axis")
+        .call(yAxis);
+        
+    var contextlineGroups = context.selectAll("g")
+        .data(sources)
+      .enter().append("g");
+    
+    var contextLines = contextlineGroups.append("path")
+        .attr("class", "line")
+        .attr("d", function(d) { return line2(d.values); })
+        .style("stroke", function(d) {return color(d.name);})
+        .attr("clip-path", "url(#clip)");
+ 
+    context.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height2 + ")")
+        .call(xAxis2);
+ 
+    context.append("g")
+        .attr("class", "x brush")
+        .call(brush)
+      .selectAll("rect")
+        .attr("y", -6)
+        .attr("height", height2 + 7);
+    });
+    
+    function brush() {
+      x.domain(brush.empty() ? x2.domain() : brush.extent());
+      focus.selectAll("path.line").attr("d",  function(d) {return line(d.values)});
+      focus.select(".x.axis").call(xAxis);
+      focus.select(".y.axis").call(yAxis);
+    }
+    */
+ 
+  </script>
+  <script type="text/javascript">
+  $('section h4').click(function(event) {
+    event.preventDefault();
+    $(this).addClass('active');
+    $(this).siblings().removeClass('active');
+
+    var ph = $(this).parent().height();
+    var ch = $(this).next().height();
+
+    if (ch > ph) {
+      $(this).parent().css({
+        'min-height': ch + 'px'
+      });
+    } else {
+      $(this).parent().css({
+        'height': 'auto'
+      });
+    }
+  });
+
+  function tabParentHeight() {
+    var ph = $('section').height();
+    var ch = $('section ul').height();
+    if (ch > ph) {
+      $('section').css({
+        'height': ch + 'px'
+      });
+    } else {
+      $(this).parent().css({
+        'height': 'auto'
+      });
+    }
+  }
+
+  $(window).resize(function() {
+    tabParentHeight();
+  });
+
+  $(document).resize(function() {
+    tabParentHeight();
+  });
+  tabParentHeight();
+  </script>
+</body>
+</html>
