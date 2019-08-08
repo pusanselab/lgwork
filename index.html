@@ -173,7 +173,7 @@
                $('#ajax_load_indicator').show().fadeIn('fast'); 
             }
           , success: function(data) {
-              var response = data.trim();
+              var response = data.message;
               console.log("success forward : "+response);
               // 메세지 할당
               switch(response) {
@@ -186,37 +186,38 @@
               }
               // 분기 처리
               if(response=="success"){
-                  window.location.href = "${http://localhost/main.html}";
+                  window.location.href = "http://localhost/main.html";
               } else {
                   alert(msg);
               }
             }
           , error: function(data, status, err) {
-             console.log("error forward : "+data.message);
+             console.log("error forward : "+data);
               alert('서버와의 통신이 실패했습니다.');
             }
           , complete: function() { 
              $('#ajax_load_indicator').fadeOut();
             }
       });
+      
   }
   
   </script>
 </head>
 
 <body>
-
+<!--
     <form id="frm" name="frm" method="post" action="" onSubmit="checkLogin();return false;">
         <fieldset>
             <legend>login</legend>
             <div class="login_item mg_top34"> 
                 <label>id</label> 
-                <input id="userId" name="memberVo.xcWebMbrId" type="text" class="i_login" />
+                <input id="userId" name="id" type="text" class="i_login" />
             </div>
     
             <div class="login_item mg_top10"> 
                 <label>password</label> 
-                <input id="userPwd" name="memberVo.xcPswd" type="password" class="i_login" />
+                <input id="userPwd" name="pwd" type="password" class="i_login" />
             </div>
             
             <div id="ajax_load_indicator" style="display:none">
@@ -228,13 +229,14 @@
             </span>
         </fieldset>
       </form>
+      -->
 
   <div class="login-card">
   <h1>Log-in</h1><br>
   <form action="main.html">
-    <input type="text" name="user" placeholder="Username">
-    <input type="password" name="pass" placeholder="Password">
-    <input type="submit" name="login" class="login login-submit" value="login">
+    <input type="text" name="id" placeholder="Username">
+    <input type="password" name="pwd" placeholder="Password">
+    <input type="submit" name="login" class="login login-submit" value="login" onclick="checkLogin();">
   </form>
 
   <div class="login-help">
