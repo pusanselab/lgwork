@@ -1,164 +1,254 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<style>
- 
-svg {
-  font: 10px sans-serif;
-}
- 
- 
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.y.axis path {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.brush .extent {
-  stroke: #fff;
-  fill-opacity: .125;
-  shape-rendering: crispEdges;
-}
-
-.line {
-  fill: none;
-}
-
-</style>
-<body>
-<script src="http://d3js.org/d3.v3.min.js"></script>
+<!--<!DOCTYPE html>
+<html>
+<head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
 <script>
- 
-var margin = {top: 10, right: 10, bottom: 100, left: 40},
-    margin2 = {top: 430, right: 10, bottom: 20, left: 40},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom,
-    height2 = 500 - margin2.top - margin2.bottom;
- 
-var color = d3.scale.category10();
- 
-var parseDate = d3.time.format("%H:%M:%S").parse;
- 
-var x = d3.time.scale().range([0, width]),
-    x2 = d3.time.scale().range([0, width]),
-    y = d3.scale.linear().range([height, 0]),
-    y2 = d3.scale.linear().range([height2, 0]);
- 
-var xAxis = d3.svg.axis().scale(x).orient("bottom"),
-    xAxis2 = d3.svg.axis().scale(x2).orient("bottom"),
-    yAxis = d3.svg.axis().scale(y).orient("left");
- 
-var brush = d3.svg.brush()
-    .x(x2)
-    .on("brush", brush);
- 
-var line = d3.svg.line()
-    .defined(function(d) { return !isNaN(d.items); })
-    .interpolate("cubic")
-    .x(function(d) { return x(d.Time); })
-    .y(function(d) { return y(d.items); });
- 
-var line2 = d3.svg.line()
-    .defined(function(d) { return !isNaN(d.items); })
-    .interpolate("cubic")
-    .x(function(d) {return x2(d.Time); })
-    .y(function(d) {return y2(d.items); });
- 
-var svg = d3.select("body").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom);
- 
-svg.append("defs").append("clipPath")
-    .attr("id", "clip")
-  .append("rect")
-    .attr("width", width)
-    .attr("height", height);
- 
-var focus = svg.append("g")
-  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-      
-var context = svg.append("g")
-  .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
- 
-d3.csv("test.csv", function(error, data) {
- 
-  color.domain(d3.keys(data[0]).filter(function(key) { return key !== "Time"; }));
- 
-    data.forEach(function(d) {
-      d.Time = parseDate(d.Time);
-    });
- 
-  var sources = color.domain().map(function(name) {
-      return {
-        name: name,
-        values: data.map(function(d) {
-          return {Time: d.Time,
-                  items: +d[name]};
-        })
-      };
-    });
- 
-    x.domain(d3.extent(data, function(d) { return d.Time; }));
-    y.domain([d3.min(sources, function(c) { return d3.min(c.values, function(v) { return v.items; }); }),
-              d3.max(sources, function(c) { return d3.max(c.values, function(v) { return v.items; }); }) ]);
-    x2.domain(x.domain());
-    y2.domain(y.domain());
-    
-    var focuslineGroups = focus.selectAll("g")
-        .data(sources)
-      .enter().append("g");
-      
-    var focuslines = focuslineGroups.append("path")
-        .attr("class","line")
-        .attr("d", function(d) { return line(d.values); })
-        .style("stroke", function(d) {return color(d.name);})
-        .attr("clip-path", "url(#clip)");
-    
-    focus.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
-        .call(xAxis);
- 
-    focus.append("g")
-        .attr("class", "y axis")
-        .call(yAxis);
-        
-    var contextlineGroups = context.selectAll("g")
-        .data(sources)
-      .enter().append("g");
-    
-    var contextLines = contextlineGroups.append("path")
-        .attr("class", "line")
-        .attr("d", function(d) { return line2(d.values); })
-        .style("stroke", function(d) {return color(d.name);})
-        .attr("clip-path", "url(#clip)");
- 
-    context.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + height2 + ")")
-        .call(xAxis2);
- 
-    context.append("g")
-        .attr("class", "x brush")
-        .call(brush)
-      .selectAll("rect")
-        .attr("y", -6)
-        .attr("height", height2 + 7);
-        
-        
-});
- 
-function brush() {
-  x.domain(brush.empty() ? x2.domain() : brush.extent());
-  focus.selectAll("path.line").attr("d",  function(d) {return line(d.values)});
-  focus.select(".x.axis").call(xAxis);
-  focus.select(".y.axis").call(yAxis);
-}
- 
+    function LoginContents() {
+        var id = $('#addContentID').val();
+        var password = $('#addContentPassword').val();
+        // 새 글 등록 시
+        if(id == '' || password == '') {
+            alert("아이디, 비밀번호 모두 있어야합니다.");
+            return;
+        } else {
+            $('#loginAction').submit();
+        }
+    }
 </script>
+<body>
+<div class="login_form">
+    <form action="main.html" method="post" id="loginAction" name="loginAction">
+        <input type="text" class="inputID" id="addContentID" name="addContentID" placeholder="아이디">
+        <input type="password" class="inputPassword" id="addContentPassword" name="addContentPassword" placeholder="비밀번호">
+        <a href="#" onclick="LoginContents();">LOGIN</a>
+    </form>
+    </form>
+    <div id = "new" class="LoginBtngroup">
+    </div>
+</div>
+</body>
+</html>-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>LG ADV Log-in</title>
+
+   <style>
+    @import url(http://fonts.googleapis.com/css?family=Roboto:400,100);
+
+    body {
+      background: url(https://dl.dropboxusercontent.com/u/23299152/Wallpapers/wallpaper-22705.jpg) no-repeat center center fixed; 
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .login-card {
+      padding: 40px;
+      width: 274px;
+      background-color: #F7F7F7;
+      margin: 0 auto 10px;
+      border-radius: 2px;
+      box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    }
+
+    .login-card h1 {
+      font-weight: 100;
+      text-align: center;
+      font-size: 2.3em;
+    }
+
+    .login-card input[type=submit] {
+      width: 100%;
+      display: block;
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    .login-card input[type=text], input[type=password] {
+      height: 44px;
+      font-size: 16px;
+      width: 100%;
+      margin-bottom: 10px;
+      -webkit-appearance: none;
+      background: #fff;
+      border: 1px solid #d9d9d9;
+      border-top: 1px solid #c0c0c0;
+      /* border-radius: 2px; */
+      padding: 0 8px;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+    }
+
+    .login-card input[type=text]:hover, input[type=password]:hover {
+      border: 1px solid #b9b9b9;
+      border-top: 1px solid #a0a0a0;
+      -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+      -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .login {
+      text-align: center;
+      font-size: 14px;
+      font-family: 'Arial', sans-serif;
+      font-weight: 700;
+      height: 36px;
+      padding: 0 8px;
+    /* border-radius: 3px; */
+    /* -webkit-user-select: none;
+      user-select: none; */
+    }
+
+    .login-submit {
+      /* border: 1px solid #3079ed; */
+      border: 0px;
+      color: #fff;
+      text-shadow: 0 1px rgba(0,0,0,0.1); 
+      background-color: #4d90fe;
+      /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
+    }
+
+    .login-submit:hover {
+      /* border: 1px solid #2f5bb7; */
+      border: 0px;
+      text-shadow: 0 1px rgba(0,0,0,0.3);
+      background-color: #357ae8;
+      /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
+    }
+
+    .login-card a {
+      text-decoration: none;
+      color: #666;
+      font-weight: 400;
+      text-align: center;
+      display: inline-block;
+      opacity: 0.6;
+      transition: opacity ease 0.5s;
+    }
+
+    .login-card a:hover {
+      opacity: 1;
+    }
+
+    .login-help {
+      width: 100%;
+      text-align: center;
+      font-size: 12px;
+    }
+  </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" language="javascript">
+
+  function checkLogin(){
+      console.log("enter login");
+      
+      // if( $.trim($("#userId").val()) == '' ){
+      //     alert("아이디를 입력해 주세요.");
+      //     $("#userId").focus();
+      //     return;
+      // }
+      // if( $.trim($("#userPw").val()) == '' ){
+      //     alert("비밀번호를 입력해 주세요.");
+      //     $("#userPw").focus();
+      //     return;
+      // }
+      // 로그인 프로세스 호출
+      $.ajax({
+          type: 'post'
+          , url: 'http://localhost:3000/api/login'
+          , data: $("#frm").serialize()
+          , beforeSend: function() {
+               $('#ajax_load_indicator').show().fadeIn('fast'); 
+            }
+          , success: function(data) {
+              var response = data.message;
+              console.log("success forward : "+response);
+              // 메세지 할당
+              switch(response) {
+                  case "nomatch": 
+                      msg = "아이디 또는 비밀번호가 일치하지 않습니다."; break;
+                  case "fail": 
+                      msg = "로그인에 실패 했습니다."; break;
+                  default : 
+                      msg = "존재하지 않는 사용자입니다."; break;
+              }
+              // 분기 처리
+              if(response=="success"){
+                  window.location.href = "http://localhost/main.html";
+              } else {
+                  alert(msg);
+              }
+            }
+          , error: function(data, status, err) {
+             console.log("error forward : "+data);
+              alert('서버와의 통신이 실패했습니다.');
+            }
+          , complete: function() { 
+             $('#ajax_load_indicator').fadeOut();
+            }
+      });
+      
+  }
+  
+  </script>
+</head>
+
+<body>
+
+    <form id="frm" name="frm" method="post" action="" onSubmit="checkLogin();return false;">
+        <fieldset>
+            <legend>login</legend>
+            <div class="login_item mg_top34"> 
+                <label>id</label> 
+                <input id="userId" name="id" type="text" class="i_login" />
+            </div>
+    
+            <div class="login_item mg_top10"> 
+                <label>password</label> 
+                <input id="userPwd" name="pwd" type="password" class="i_login" />
+            </div>
+            
+            <div id="ajax_load_indicator" style="display:none">
+                <p style="text-align:center; padding:16px 0 0 0"><img src="/mobile/common/img/ajax-loader-line.gif" /></p>
+            </div>
+    
+            <span class="btn_login">
+                <input type="image" src="<%=imageUrl%>/btn/btn_login.jpg" title="로그인" onclick="checkLogin();">
+            </span>
+        </fieldset>
+      </form>
+
+  <div class="login-card">
+  <h1>Log-in</h1><br>
+  <form action="main.html">
+    <input type="text" name="user" placeholder="Username">
+    <input type="password" name="pass" placeholder="Password">
+    <input type="submit" name="login" class="login login-submit" value="login">
+  </form>
+
+  <div class="login-help">
+    <a href="#">Register</a> • <a href="#">Forgot Password</a>
+  </div>
+  </div>
+
+
+
+
+
+  
+
+</body>
+
+</html>
