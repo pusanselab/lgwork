@@ -147,12 +147,90 @@
       font-size: 12px;
     }
   </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" language="javascript">
+
+  function checkLogin(){
+      console.log("enter login");
+      
+      // if( $.trim($("#userId").val()) == '' ){
+      //     alert("아이디를 입력해 주세요.");
+      //     $("#userId").focus();
+      //     return;
+      // }
+      // if( $.trim($("#userPw").val()) == '' ){
+      //     alert("비밀번호를 입력해 주세요.");
+      //     $("#userPw").focus();
+      //     return;
+      // }
+      // 로그인 프로세스 호출
+      $.ajax({
+          type: 'post'
+          , url: 'http://localhost:3000/api/login'
+          , data: $("#frm").serialize()
+          , beforeSend: function() {
+               $('#ajax_load_indicator').show().fadeIn('fast'); 
+            }
+          , success: function(data) {
+              var response = data.trim();
+              console.log("success forward : "+response);
+              // 메세지 할당
+              switch(response) {
+                  case "nomatch": 
+                      msg = "아이디 또는 비밀번호가 일치하지 않습니다."; break;
+                  case "fail": 
+                      msg = "로그인에 실패 했습니다."; break;
+                  default : 
+                      msg = "존재하지 않는 사용자입니다."; break;
+              }
+              // 분기 처리
+              if(response=="success"){
+                  window.location.href = "${http://localhost/main.html}";
+              } else {
+                  alert(msg);
+              }
+            }
+          , error: function(data, status, err) {
+             console.log("error forward : "+data.message);
+              alert('서버와의 통신이 실패했습니다.');
+            }
+          , complete: function() { 
+             $('#ajax_load_indicator').fadeOut();
+            }
+      });
+  }
+  
+  </script>
 </head>
 
 <body>
 
+    <form id="frm" name="frm" method="post" action="" onSubmit="checkLogin();return false;">
+        <fieldset>
+            <legend>login</legend>
+            <div class="login_item mg_top34"> 
+                <label>id</label> 
+                <input id="userId" name="memberVo.xcWebMbrId" type="text" class="i_login" />
+            </div>
+    
+            <div class="login_item mg_top10"> 
+                <label>password</label> 
+                <input id="userPwd" name="memberVo.xcPswd" type="password" class="i_login" />
+            </div>
+            
+            <div id="ajax_load_indicator" style="display:none">
+                <p style="text-align:center; padding:16px 0 0 0"><img src="/mobile/common/img/ajax-loader-line.gif" /></p>
+            </div>
+    
+            <span class="btn_login">
+                <input type="image" src="<%=imageUrl%>/btn/btn_login.jpg" title="로그인" onclick="checkLogin();">
+            </span>
+        </fieldset>
+      </form>
+
   <div class="login-card">
-  <h1>Log-ina</h1><br>
+  <h1>Log-in</h1><br>
   <form action="main.html">
     <input type="text" name="user" placeholder="Username">
     <input type="password" name="pass" placeholder="Password">
@@ -163,6 +241,12 @@
     <a href="#">Register</a> • <a href="#">Forgot Password</a>
   </div>
   </div>
+
+
+
+
+
+  
 
 </body>
 
