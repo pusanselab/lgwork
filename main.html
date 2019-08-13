@@ -23,6 +23,13 @@
         color: rgb(0, 0, 0);
         background: #00ced1;
       }
+      table {
+        width: 100%;
+        border: 1px solid #444444;
+      }
+      th, td {
+        border: 1px solid #444444;
+      }
       @media screen and (min-width: 600px) {
         html,
         body {
@@ -141,16 +148,16 @@
     <ul>
       <!--<div id="linechart"></div>-->
       <div name="test">
-          <h3>■ ID검색</h3>
-          <form name="input" method="post" action="">
-                  ID : <input type="text" name="id" maxlength="10">
-                  <input type="submit" value="검색">
-          </form>
-      </div>
+        <h3>■ ID검색</h3>
+        <form name="input" method="post" action="" id="id_search" onSubmit="idSearch();return false;">
+                ID : <input type="text" name="header_uid" maxlength="10">
+                <input type="submit" value="검색" onclick="idSearch();">
+        </form>
+    </div>
       <br/>
       
       <div name="test2">
-        <form name="data_search" method="post" action="test.html">
+        <form id="data_search" method="post" action="" onSubmit="dataSearch();return false;">
           <h3>■ 데이터 검색 (필수)</h3>
           분류 : 
           <select name="index">
@@ -168,22 +175,45 @@
           <br/>
           <h3>■ 데이터 상세검색</h3>
           Model 명 : 
-          <input type="text" name="model_name" maxlength="10" value="-">
+          <input type="text" name="model_name" maxlength="10" placeholder="-">
           시험자 : 
-          <input type="text" name="experiant" maxlength="10" value="-">
+          <input type="text" name="experiant" maxlength="10" placeholder="-">
           Data ID : 
-          <input type="text" name="data_id" maxlength="10" value="-">
+          <input type="text" name="data_id" maxlength="10" placeholder="-">
           <br/>
           용량 : 
-          <input type="text" name="capacity" maxlength="10" value="-">
+          <input type="text" name="capacity" maxlength="10" placeholder="-">
           시험종류 : 
           <select name="model">
             <option value="Multi V 5" selected="selected">-</option>
             <option value="사과">사과</option>
             <option value="파인애플">파인애플</option>
           </select>
-          <input type="submit" value="검색">
+          <input type="submit" value="검색" onclick="dataSearch();">
         </form>
+      </div>
+
+      <div id="search_fail" style="display: none">
+      
+      </div>
+
+      <div id="search_result" style="display: none">
+          <table id="search_table">
+            <tbody id="search_tbody">
+              <tr>
+                <td>ID</td>
+                <td>Model</td>
+                <td>모델명</td>
+                <td>용량</td>
+                <td>샤시</td>
+                <td>냉매 종류</td>
+                <td>시험 종류</td>
+                <td>시험 상세</td>
+                <td>시험 날짜</td>
+                <td>시험 담당자</td>
+              </tr>
+            </tbody>
+          </table>
       </div>
 
     </ul>
@@ -257,134 +287,6 @@
       .attr("y", 100 - dataset[i]);
     }
 
-
-
-
-    /*
-    var margin = {top: 10, right: 10, bottom: 100, left: 40},
-    margin2 = {top: 430, right: 10, bottom: 20, left: 40},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom,
-    height2 = 500 - margin2.top - margin2.bottom;
- 
-    var color = d3.scale.category10();
-    
-    var parseDate = d3.time.format("%H:%M:%S").parse;
-    
-    var x = d3.time.scale().range([0, width]),
-        x2 = d3.time.scale().range([0, width]),
-        y = d3.scale.linear().range([height, 0]),
-        y2 = d3.scale.linear().range([height2, 0]);
-    
-    var xAxis = d3.svg.axis().scale(x).orient("bottom"),
-        xAxis2 = d3.svg.axis().scale(x2).orient("bottom"),
-        yAxis = d3.svg.axis().scale(y).orient("left");
-    
-    var brush = d3.svg.brush()
-        .x(x2)
-        .on("brush", brush);
-    
-    var line = d3.svg.line()
-        .defined(function(d) { return !isNaN(d.items); })
-        .interpolate("cubic")
-        .x(function(d) { return x(d.Time); })
-        .y(function(d) { return y(d.items); });
-    
-    var line2 = d3.svg.line()
-        .defined(function(d) { return !isNaN(d.items); })
-        .interpolate("cubic")
-        .x(function(d) {return x2(d.Time); })
-        .y(function(d) {return y2(d.items); });
-    
-    var svg = d3.select('#linechart').append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom);
-    
-    svg.append("defs").append("clipPath")
-        .attr("id", "clip")
-      .append("rect")
-        .attr("width", width)
-        .attr("height", height);
-    
-    var focus = svg.append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-          
-    var context = svg.append("g")
-      .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
-    
-    d3.csv("multiv_5_raw_data_20181231_231050.csv", function(error, data) {
-    
-      color.domain(d3.keys(data[0]).filter(function(key) { return key !== "Time"; }));
-    
-        data.forEach(function(d) {
-          d.Time = parseDate(d.Time);
-        });
-    
-      var sources = color.domain().map(function(name) {
-          return {
-            name: name,
-            values: data.map(function(d) {
-              return {Time: d.Time,
-                      items: +d[name]};
-            })
-          };
-        });
- 
-    x.domain(d3.extent(data, function(d) { return d.Time; }));
-    y.domain([d3.min(sources, function(c) { return d3.min(c.values, function(v) { return v.items; }); }),
-              d3.max(sources, function(c) { return d3.max(c.values, function(v) { return v.items; }); }) ]);
-    x2.domain(x.domain());
-    y2.domain(y.domain());
-    
-    var focuslineGroups = focus.selectAll("g")
-        .data(sources)
-      .enter().append("g");
-      
-    var focuslines = focuslineGroups.append("path")
-        .attr("class","line")
-        .attr("d", function(d) { return line(d.values); })
-        .style("stroke", function(d) {return color(d.name);})
-        .attr("clip-path", "url(#clip)");
-    
-    focus.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
-        .call(xAxis);
- 
-    focus.append("g")
-        .attr("class", "y axis")
-        .call(yAxis);
-        
-    var contextlineGroups = context.selectAll("g")
-        .data(sources)
-      .enter().append("g");
-    
-    var contextLines = contextlineGroups.append("path")
-        .attr("class", "line")
-        .attr("d", function(d) { return line2(d.values); })
-        .style("stroke", function(d) {return color(d.name);})
-        .attr("clip-path", "url(#clip)");
- 
-    context.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + height2 + ")")
-        .call(xAxis2);
- 
-    context.append("g")
-        .attr("class", "x brush")
-        .call(brush)
-      .selectAll("rect")
-        .attr("y", -6)
-        .attr("height", height2 + 7);
-    });
-    
-    function brush() {
-      x.domain(brush.empty() ? x2.domain() : brush.extent());
-      focus.selectAll("path.line").attr("d",  function(d) {return line(d.values)});
-      focus.select(".x.axis").call(xAxis);
-      focus.select(".y.axis").call(yAxis);
-    }
-    */
  
   </script>
   <script type="text/javascript">
@@ -429,6 +331,136 @@
     tabParentHeight();
   });
   tabParentHeight();
+
+
+  function idSearch(){
+  console.log("serach");
+  $.ajax({
+      type: 'post'
+      , url: 'http://localhost:3000/api/data_search_id'
+      , data: $("#id_search").serialize()
+      , beforeSend: function() {
+           $('#ajax_load_indicator').show().fadeIn('fast'); 
+        }
+      , success: function(data) {
+          $('#search_result').css('display','inline');
+
+          console.log("success ford!!");
+          console.log(data);
+          // 분기 처리
+          if(data!=null){
+              console.log("널 그리워하다");
+              $('#search_fail').css('display','none');
+              var id=data.header_uid;
+              var Model=data.lgmv_model_filter1;
+              var Model_name=data.lgmv_serial_number;
+              var capavity=data.calorimeter_cap;
+              var sasy=data.idu_chassis ;
+              var nang=data.lgmv_r;
+              var test_kind=data.conn_pipe_type;
+              var test_detail=data.conn_memo;
+              var test_date=data.lgmv_date;
+              var test_performer=data.conn_tester;
+
+              var rowItem = "<tr>";
+              rowItem+="<td>"+id+"</td>";
+              rowItem+="<td>"+Model+"</td>";
+              rowItem+="<td>"+Model_name+"</td>";
+              rowItem+="<td>"+capavity+"</td>";
+              rowItem+="<td>"+sasy+"</td>";
+              rowItem+="<td>"+nang+"</td>";
+              rowItem+="<td>"+test_kind+"</td>";
+              rowItem+="<td>"+test_detail+"</td>";
+              rowItem+="<td>"+test_date+"</td>";
+              rowItem+="<td>"+test_performer+"</td>";
+              rowItem+="</tr>";
+
+              $('#search_tbody tr:eq(1)').remove(); 
+              $('#search_tbody').append(rowItem);
+              
+          } else {
+            console.log("여기?");
+            $('#search_result').css('display','none');
+            $('#search_fail').css('display','inline');
+            $('#search_fail').html('<h1> 검색결과가 없습니다. </h1>');
+          }
+        }
+      , error: function(data, status, err) {
+         console.log("error forward : "+data);
+          alert('서버와의 통신이 실패했습니다.');
+        }
+      , complete: function() { 
+         $('#ajax_load_indicator').fadeOut();
+        }
+  });
+  
+}
+
+
+
+
+function dataSearch(){
+  console.log("serach");
+  $.ajax({
+      type: 'post'
+      , url: 'http://localhost:3000/api/data_search_id'
+      , data: $("#id_search").serialize()
+      , beforeSend: function() {
+           $('#ajax_load_indicator').show().fadeIn('fast'); 
+        }
+      , success: function(data) {
+          $('#search_result').css('display','inline');
+
+          console.log("success ford!!");
+          console.log(data);
+          // 분기 처리
+          if(data!=null){
+              console.log("널 그리워하다");
+              $('#search_fail').css('display','none');
+              var id=data.header_uid;
+              var Model=data.lgmv_model_filter1;
+              var Model_name=data.lgmv_serial_number;
+              var capavity=data.calorimeter_cap;
+              var sasy=data.idu_chassis ;
+              var nang=data.lgmv_r;
+              var test_kind=data.conn_pipe_type;
+              var test_detail=data.conn_memo;
+              var test_date=data.lgmv_date;
+              var test_performer=data.conn_tester;
+
+              var rowItem = "<tr>";
+              rowItem+="<td>"+id+"</td>";
+              rowItem+="<td>"+Model+"</td>";
+              rowItem+="<td>"+Model_name+"</td>";
+              rowItem+="<td>"+capavity+"</td>";
+              rowItem+="<td>"+sasy+"</td>";
+              rowItem+="<td>"+nang+"</td>";
+              rowItem+="<td>"+test_kind+"</td>";
+              rowItem+="<td>"+test_detail+"</td>";
+              rowItem+="<td>"+test_date+"</td>";
+              rowItem+="<td>"+test_performer+"</td>";
+              rowItem+="</tr>";
+
+              $('#search_tbody tr:eq(1)').remove(); 
+              $('#search_tbody').append(rowItem);
+              
+          } else {
+            console.log("여기?");
+            $('#search_result').css('display','none');
+            $('#search_fail').css('display','inline');
+            $('#search_fail').html('<h1> 검색결과가 없습니다. </h1>');
+          }
+        }
+      , error: function(data, status, err) {
+         console.log("error forward : "+data);
+          alert('서버와의 통신이 실패했습니다.');
+        }
+      , complete: function() { 
+         $('#ajax_load_indicator').fadeOut();
+        }
+  });
+  
+}
   </script>
 </body>
 </html>
