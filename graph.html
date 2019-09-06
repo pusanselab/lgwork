@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <title>LG Air Data Virtualization</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <link rel="stylesheet" href="assets/css/login.css" />
+        <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    </header>
+    <body>
+        <div id="sub">
+            <h1> ■ 그래프 추가</h1>
+            Unit : <select name="unit">
+                <option>test</option>
+            </select>
+            Index : <select name="index">
+                    <option>test</option>
+                </select>
+            <button onClick=''>선택</button>
+
+        </div>
+        <div id="table">
+
+        </div>
+        <div id="graph">
+
+        </div>
+        
+    </body>
+
+
+
+    <!--Script-->
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/jquery.dropotron.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
+    <script src="https://d3js.org/d3-array.v2.min.js"></script>
+    <script src="https://d3js.org/d3-color.v1.min.js"></script>
+    <script src="https://d3js.org/d3-format.v1.min.js"></script>
+    <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+    <script src="https://d3js.org/d3-time.v1.min.js"></script>
+    <script src="https://d3js.org/d3-time-format.v2.min.js"></script>
+    <script src="https://d3js.org/d3-scale.v3.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script>
+
+            $(document).ready(function(){
+				console.log("enter login");
+				$.ajax({
+					type: 'post'
+					, url: 'http://localhost:3000/api/overview'
+						
+					, beforeSend: function() {
+						$('#ajax_load_indicator').show().fadeIn('fast'); 
+					}
+					, success: function(data) {
+
+
+							
+						}
+						, error: function(data, status, err) {
+							console.log("error forward : "+data);
+							alert('서버와의 통신이 실패했습니다.');
+						}
+						, complete: function() { 
+							$('#ajax_load_indicator').fadeOut();
+						}
+					});
+				});
+
+    </script>
+</html>

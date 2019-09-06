@@ -114,28 +114,119 @@
 			<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
 			
-			<script src="https://d3js.org/d3.v3.min.js">
-				var dataset = [9, 19, 29, 39, 29, 19, 9];
-				var svg_3 = d3.select("#svg_3");
-				for (var i=0; i < dataset.length; i++){
-				  svg_3.append("rect")
-				  .attr("height", dataset[i])
-				  .attr("width", 40)
-				  .attr("x", 50 * i)
-				  .attr("y", 100 - dataset[i])
-				  .attr("fill","white");
-				}
-				var svg_2 = d3.select("#svg_2");
-				for (var i=0; i < dataset.length; i++){
-				  svg_2.append("rect")
-				  .attr("height", dataset[i])
-				  .attr("width", 40)
-				  .attr("x", 50 * i)
-				  .attr("y", 100 - dataset[i])
-				  .attr("fill","white");
-				}
+			<script src="https://d3js.org/d3.v4.min.js"></script>
+			<script>
 			
-			 
+
+		
+			
+			var x=[
+                "Multi V H/P",    
+                "Multi V H/R",
+                "Multi V ARUM",
+                "Multi Water",        
+                "Multi V S",
+                "Multi V M",
+                "Multi V Space",
+                "GHP",
+                "Chiller",
+                "Therma V",
+                "Single Package",
+                "Single&Multi",
+                "Refrigeration",
+				]
+
+
+
+			
+			
+
+			$(document).ready(function(){
+				console.log("enter login");
+				$.ajax({
+					type: 'post'
+					, url: 'http://localhost:3000/api/overview'
+						
+					, beforeSend: function() {
+						$('#ajax_load_indicator').show().fadeIn('fast'); 
+					}
+					, success: function(data1) {
+
+						var margin = {top: 30, right: 30, bottom: 70, left: 60},
+							width = 460 - margin.left - margin.right,
+							height = 400 - margin.top - margin.bottom;
+
+						// append the svg object to the body of the page
+						var svg = d3.select("#my_dataviz")
+						.append("svg")
+							.attr("width", width + margin.left + margin.right)
+							.attr("height", height + margin.top + margin.bottom)
+						.append("g")
+							.attr("transform",
+								"translate(" + margin.left + "," + margin.top + ")");
+
+						// Parse the Data
+						console.log(data1.content.model);
+						var data = data1.content.model;
+						
+							//
+
+						// X axis
+						var x = d3.scaleBand()
+						.range([0, width])
+						.domain(data.map(function(d) { return d.name; }))
+						.paddingInner(0.2);
+						svg.append("g")
+						.attr("transform", "translate(0," + height + ")")
+						.call(d3.axisBottom(x))
+						.selectAll("text")
+							.attr("transform", "translate(-10,0)rotate(-45)")
+							.style("text-anchor", "end")
+							.style("color","#69b3a2");
+
+						// Add Y axis
+						
+						var y = d3.scaleLinear()
+						.domain([0, d3.max(data, function(d){ return d.count;})+3])
+						.range([ height, 0]);
+						svg.append("g")
+						.call(d3.axisLeft(y));
+
+						// Bars
+						svg.selectAll("mybar")
+						.data(data)
+						.enter()
+						.append("rect")
+							.attr("x", function(d) { return x(d.name); })
+							.attr("y", function(d) { return y(d.count); })
+							.attr("width", x.bandwidth())
+							.attr("height", function(d) { return height - y(d.count); })
+							.attr("fill", "#69b3a2")
+							.on("mouseover", function() { tooltip.style("display", null); })
+            				.on("mouseout",  function() { tooltip.style("display", "none"); })
+							.on("mousemove", function(d) {
+								tooltip.style("left", (d3.event.pageX + 10) + "px");
+								tooltip.style("top", (d3.event.pageY - 10) + "px");
+								tooltip.text(d.count); });
+										
+						
+						var tooltip = d3.select("body").append("div")
+        								.attr("class", "toolTip")
+        								.style("display", "none");
+
+
+							
+						}
+						, error: function(data, status, err) {
+							console.log("error forward : "+data);
+							alert('서버와의 통신이 실패했습니다.');
+						}
+						, complete: function() { 
+							$('#ajax_load_indicator').fadeOut();
+						}
+					});
+				});
+						
 			</script>
 
 	</body>
