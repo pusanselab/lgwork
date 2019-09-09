@@ -104,7 +104,7 @@
 						</select>
 						Model 군 : 
 						<select name="lgmv_model_filter2">
-				
+
 							<option value="Multi V 5 HR" selected="selected" >Multi V 5 HR</option>
 							<option value="Multi V 5 A">Multi V 5 A</option>
 							<option value="Multi V 5 H">Multi V 5 H</option>
@@ -154,7 +154,6 @@
 							<option value="Condensing Unit">Condensing Unit</option>
 							<option value="Super CDU">Super CDU</option>
 					
-				
 						</select>
 						<br/>
 						<br/>
@@ -301,6 +300,7 @@
 								<td>시험 날짜</td>
 								<td>실험자</td>
 								<td>챔버 번호</td>
+								<td>그래프</td>
 							</tr>
 							</tbody>
 						</table>
@@ -678,6 +678,7 @@
 				rowItem+="<td>"+test_date+"</td>";
 				rowItem+="<td>"+test_performer+"</td>";
 				rowItem+="<td>"+testroom+"</td>";
+				rowItem+="<td> <button class='button' onclick=\"setHeaderUid(\'"+id+"\');\">그래프 보기</button></td>";
 				rowItem+="</tr>";
   
 				  $('#search_tbody').append(rowItem);
@@ -988,6 +989,9 @@
 		  }
 	});
   }
+function setHeaderUid(index) {
+	window.location.href = "graph.html?index=" + index;
+	}
 	</script>
 
 	</body>
