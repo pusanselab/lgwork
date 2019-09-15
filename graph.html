@@ -42,7 +42,7 @@
             </tbody>
             </table>
 
-            <button class='button'>그래프 보기</button>
+            <button class='button' onclick='showGraph()'>그래프 보기</button>
 
         </div>
         <div id="graph">
@@ -50,9 +50,7 @@
 
             </div>
             <div id="selectgraph">
-                <form id="selectform">
-                    
-                </form>
+                
 
             </div>
 
@@ -287,12 +285,349 @@
                 }
 
                 function showGraph(){
-                   var table_length= $('detail_body tr').lenght
+                   var rowData = new Array();
+
+                   var table_length= $('#detail_body tr').length;
+                   var htmltest = "<div class='row'>";
+
+                   var odu_list=['TXT_HIGH_PRESSURE_TARGETTING',
+                    'TXT_HIGH_PRESSURE_TRACE',
+                    'TXT_IDU_TEMP_WEIGHTED_AVERAGE',
+                    'TXT_LOW_PRESSURE_TARGETTING',
+                    'TXT_LOW_PRESSURE_TRACE',
+                    'TXT_COMP_RATIO',
+                    'TXT_SH_TARGETTING',
+                    'TXT_SH_TRACE',
+                    'TXT_SC_TRACE',
+                    'TXT_SCSH_TARGETTING',
+                    'TXT_SCSH_TRACE',
+                    'TXT_ACCUM',
+                    'TXT_4WAY',
+                    'TXT_ACT_HEX_VAPOER_VALVE',
+                    'TXT_EQ_VALVE',
+                    'TXT_RECEIVER_IN',
+                    'TXT_RECEIVER_OUT',
+                    'TXT_VAPOR_INJECTION',
+                    'TXT_COMP1_OIL_LEVEL',
+                    'TXT_COMP2_OIL_LEVEL',
+                    'TXT_HEX_HIGH',
+                    'TXT_HEX_LOW',
+                    'TXT_INV_PREHEAT',
+                    'TXT_INV2_PREHEAT',
+                    'TXT_ACTIVE_OIL1',
+                    'TXT_ACTIVE_OIL2',
+                    'TXT_ODU_DRY_CONTACT',
+                    'TXT_SNOW_DEEP',
+                    'TXT_INV1_TARGETTING_N_TRACE',
+                    'TXT_INV2_TARGETTING_N_TRACE',
+                    'TXT_FAN1_TARGETTING',
+                    'TXT_FAN1_TRACE',
+                    'TXT_FAN2_TARGETTING',
+                    'TXT_FAN2_TRACE',
+                    'TXT_MAIN_EEV',
+                    'TXT_SUB_EEV',
+                    'TXT_SC_EEV',
+                    'TXT_DVI_EEV',
+                    'TXT_VI_EEV1',
+                    'TXT_VI_EEV2',
+                    'TXT_AIR_TEMP',
+                    'TXT_SUCTION_TEMP',
+                    'TXT_CONDENSING_TEMP',
+                    'TXT_EVAPORATING_TEMP',
+                    'TXT_INV1_DISCHARGE_TEMP',
+                    'TXT_INV2_DISCHARGE_TEMP',
+                    'TXT_HEAT_EXCHANGER_TEMP',
+                    'TXT_HEAT_EXCHANGER_UP_TEMP',
+                    'TXT_HEAT_EXCHANGER_DOWN_TEMP',
+                    'TXT_SC_PIPE_IN_TEMP',
+                    'TXT_SC_PIPE_OUT_TEMP',
+                    'TXT_SC_PIPE_LIQUID_PIPE_TEMP',
+                    'TXT_DVI_IN_TEMP',
+                    'TXT_DVI_OUT_TEMP',
+                    'TXT_INV1_IPM_TEMP',
+                    'TXT_INV2_IPM_TEMP',
+                    'TXT_FAN_HEATSINK_TEMP',
+                    'TXT_FAN2_HEATSINK_TEMP',
+                    'TXT_OUT_HUMIDITY',
+                    'TXT_NOISE_LEVEL',
+                    'TXT_INV1_INPUT_Current',
+                    'TXT_INV2_INPUT_Current',
+                    'TXT_INV1_INPUT_VOLTAGE',
+                    'TXT_INV2_INPUT_VOLTAGE',
+                    'TXT_INV1_FREQUENCY_INPUT_VOLTAGE',
+                    'TXT_INV2_FREQUENCY_INPUT_VOLTAGE',
+                    'TXT_INV1_UP_CURRENT',
+                    'TXT_INV2_UP_CURRENT',
+                    'TXT_FAN1_UP_CURRENT',
+                    'TXT_FAN2_UP_CURRENT',
+                    'TXT_FAN_DC_LINK_VOLTAGE',
+                    'TXT_INV1_DC_LINK_VOLTAGE',
+                    'TXT_INV2_DC_LINK_VOLTAGE',
+                    'TXT_INSTANT_POWER_CONSUMPTION',
+                    'TXT_ACCRUE_POWER_CONSUMPTION',
+                    'TXT_INFO_DRIVING_MODE',
+                    'TXT_INFO_ERROR_NUMBER',
+                    'TXT_INFO_ERROR_UNIT',
+                    'TXT_INFO_PRODUCT_TYPE',
+                    'TXT_INFO_VERSION',
+                    'TXT_INFO_EXT_VERSION',
+                    'TXT_INFO_EEPROM',
+                    'TXT_INFO_COMP_VERSION',
+                    'TXT_INFO_FAN_VERSION',
+                    'TXT_INFO_DISTRIBUTOR',
+                    'TXT_INFO_INSTALLER',
+                    'TXT_INFO_SITENAME',
+                    'TXT_INFO_MODEL_INFO',
+                    'TXT_OVERLOAD',
+                    'TXT_LIMIT_CT',
+                    'TXT_LIMIT_TEMP',
+                    'TXT_LIMIT_VT',
+                    'TXT_INFO_LGMV_VERSION'
+                    ];
+
+                    var idu_list=['TXT_IDU_CAPACITY',
+                    'TXT_IDU_MODE',
+                    'TXT_IDU_WIND',
+                    'TXT_IDU_EEV',
+                    'TXT_IDU_AIR_TEMP',
+                    'TXT_IDU_PIPE_IN_TEMP',
+                    'TXT_IDU_PIPE_OUT_TEMP',
+                    'TXT_IDU_COMMUNICATION',
+                    'TXT_IDU_CENTRAL_CONTROL_ADDRESS',
+                    'TXT_IDU_ERROR_NUMBER',
+                    'TXT_OUT_HUMIDITY',
+                    'TXT_IDU_LOCK',
+                    'TXT_IDU_SCSH_TGT',
+                    'TXT_IDU_SCSH_TGT2'
+                    ];
+
+                    var hru_list=['TXT_HRU_NUMBER',
+                    'TXT_HRU_VERSION',
+                    'TXT_HRU_PIPE1_STATE',
+                    'TXT_HRU_PIPE2_STATE',
+                    'TXT_HRU_PIPE3_STATE',
+                    'TXT_HRU_PIPE4_STATE',
+                    'TXT_HRU_PIPE5_STATE',
+                    'TXT_HRU_PIPE6_STATE',
+                    'TXT_HRU_PIPE7_STATE',
+                    'TXT_HRU_PIPE8_STATE',
+                    'TXT_HRU_EEV',
+                    'TXT_HRU_LIQUID_PIPE_TEMP',
+                    'TXT_HRU_PIPE_IN_TEMP',
+                    'TXT_HRU_PIPE_OUT_TEMP',
+                    'TXT_HRU_SEARCHED_IDU',
+                    'TXT_HRU_SET_IDU',
+                    'TXT_HRU_PIPE_SEARCH_END',
+                    'TXT_HRU_PIPE_SEARCH_ENABLE',
+                    'TXT_HRU_SCEEV1 ',
+                    'TXT_HRU_MID_EEV1',
+                    'TXT_HRU_MID_EEV2',
+                    'TXT_HRU_MID_EEV3',
+                    'TXT_HRU_MID_EEV4',
+                    'TXT_HRU_MID_EEV5',
+                    'TXT_HRU_MID_EEV6',
+                    'TXT_HRU_MID_EEV7',
+                    'TXT_HRU_MID_EEV8'
+                    ];
+
+                    var awhp_list=['TXT_SIDU_NUMBER'];
+                    var cascade_list=['TXT_SIDU_NUMBER',
+                        'TXT_SIDU_TEMP_CHOICE',
+                        'TXT_SIDU_AIR_OUT_TEMP_TARGETTING',
+                        'TXT_SIDU_HEAT_WATER_ACTIVE',
+                        'TXT_SIDU_HEAT_WATER_TEMP_TARGETTING',
+                        'TXT_SIDU_WATER_PUMP',
+                        'TXT_SIDU_HEATER_WATER_MODE',
+                        'TXT_SIDU_HEAT_WATER_TEMP',
+                        'TXT_SIDU_WATER_IN_TEMP',
+                        'TXT_SIDU_WATER_OUT_TEMP',
+                        'TXT_SIDU_TEMP_GAP',
+                        'TXT_SIDU_CASECADE_ERROR',
+                        'TXT_SIDU_HEATER',
+                        'TXT_SIDU_HEAT_SHINK_TEMP',
+                        'TXT_SIDU_CASECADE_HIGH_PRESSURE',
+                        'TXT_SIDU_CASECADE_LOW_PRESSURE',
+                        'TXT_SIDU_DISCHARGE_TEMP',
+                        'TXT_SIDU_CASECADE_INPUT_CURRENT',
+                        'TXT_COMP1_UP_VOLTAGE',
+                        'TXT_COMP1_UP_CURRENT',
+                        'TXT_COMP1_TARGETTING',
+                        'TXT_COMP1_TRACE',
+                        'TXT_SIDU_CASECADE_EEV',
+                        'TXT_4WAY',
+                        'TXT_HOTGAS',
+                        'TXT_SIDU_FAN_HEATSINK',
+                        'TXT_SUMP_HEATER',
+                        'TXT_SIDU_FCU',
+                        'TXT_SIDU_FLOW_SW',
+                        'TXT_SIDU_SUCTION_T,EMP',
+                        'TXT_HOT_WATER_STORAGE_TANK_HEATER'
+                        ];
+
+                   var dxc_list=['TXT_SIDU_NUMBER',
+                        'TXT_SIDU_OA_TEMP',
+                        'TXT_SIDU_RA_TEMP',
+                        'TXT_SIDU_DXC_AIRCON',
+                        'TXT_SIDU_DXC_VENT'
+                        ];
+
+                   var fau_list=['TXT_SIDU_NUMBER',
+                        'TXT_SIDU_SUCTION_TEMP'
+                        ];
+                   
+                   var showcase_list=['TXT_SIDU_NUMBER',
+                        'TXT_SIDU_SHOWCASE_TYPE',
+                        'TXT_SIDU_SHOWCASE_OPER_STATE',
+                        'TXT_SIDU_SHOWCASE_OPER_DEFROST',
+                        'TXT_SIDU_SHOWCASE_OPER_REFRIGERATION',
+                        'TXT_SIDU_SHOWCASE_TROUBLE_DEFROSTING',
+                        'TXT_IDU_CENTRAL_CONTROL_ADDRESS',
+                        'TXT_AIR_TEMP',
+                        'TXT_SIDU_SHOWCASE_DEFROST_TEMP',
+                        'TXT_IDU_PIPE_IN_TEMP',
+                        'TXT_IDU_PIPE_OUT_TEMP',
+                        'TXT_SIDU_CASECADE_EEV',
+                        'TXT_SIDU_CASECADE_ERROR',
+                        'TXT_SIDU_SHOWCASE_TARGET_TEMP',
+                        'TXT_SIDU_SHOWCASE_THERMO_GAP_TEMP',
+                        'TXT_SH_TARGETTING'
+                        ];
+                   var whu_list=['TXT_SIDU_NUMBER',
+                        'TXT_SIDU_TEMP_CHOICE',
+                        'TXT_SIDU_AIR_OUT_TEMP_TARGETTING',
+                        'TXT_SIDU_HEAT_WATER_ACTIVE',
+                        'TXT_SIDU_HEAT_WATER_TEMP_TARGETTING',
+                        'TXT_SIDU_WATER_PUMP',
+                        'TXT_SIDU_HEATER_WATER_MODE',
+                        'TXT_SIDU_HEAT_WATER_TEMP',
+                        'TXT_SIDU_WATER_IN_TEMP',
+                        'TXT_SIDU_WATER_OUT_TEMP',
+                        'TXT_SIDU_TEMP_GAP_TGT',
+                        'TXT_SIDU_TEMP_GAP',
+                        'TXT_SIDU_HEATER',
+                        'TXT_SIDU_HEATER_OUT_TEMP',
+                        'TXT_SIDU_RELAY1',
+                        'TXT_SIDU_RELAY2'
+                        ];
+                  var cal_list=['Capacity',
+                                'EER',
+                                'Power',
+                                'Current',
+                                'Voltage',
+                                'Power_Factor',
+                                'Power_Frequency',
+                                'Capacity_Ratio',
+                                'EER_Ratio',
+                                'Power_Ratio',
+                                'Current_Ratio',
+                                'Air_Flow',
+                                'ID_Entering_DB',
+                                'ID_Entering_WB',
+                                'ID_Leaving_DB',
+                                'ID_Leaving_WB',
+                                'OD_Entering_DB',
+                                'OD_Entering_WB',
+                                'Enthalpy_Entering',
+                                'Enthalpy_Leaving',
+                                'Abs_Humidity_Entering',
+                                'Abs_Humidity_Leaving',
+                                'Specific_Heat_Leaving',
+                                'Specific_Volume_Leaving',
+                                'Heat_Leakage',
+                                'Condensate_Weight',
+                                'Latent_Capacity',
+                                'Sensible_Capacity',
+                                'Sensible_Heat_Ratio',
+                                'Static_Pressure',
+                                'Nozzle_Diff. Pressure',
+                                'Barometric_Pressure',
+                                'TC_1',
+                                'TC_2',
+                                'TC_3',
+                                'TC_4',
+                                'TC_5',
+                                'TC_6',
+                                'TC_7',
+                                'TC_8',
+                                'TC_9',
+                                'TC_10',
+                                'TC_11',
+                                'TC_12',
+                                'TC_13',
+                                'TC_14',
+                                'TC_15',
+                                'TC_16',
+                                'TC_17',
+                                'TC_18',
+                                'TC_19',
+                                'TC_20',
+                                'TC_21',
+                                'TC_22',
+                                'TC_23',
+                                'TC_24',
+                                'TC_25',
+                                'TC_26',
+                                'TC_27',
+                                'TC_28',
+                                'TC_29',
+                                'TC_30',
+                                'TC_31',
+                                'TC_32',
+                                'TC_33',
+                                'TC_34',
+                                'TC_35',
+                                'TC_36',
+                                'TC_37',
+                                'TC_38',
+                                'TC_39',
+                                'TC_40',
+                                'TC_41',
+                                'TC_42',
+                                'TC_43',
+                                'TC_44',
+                                'TC_45',
+                                'TC_46',
+                                'TC_47',
+                                'TC_48',
+                                'TC_49',
+                                'TC_50',
+                                'TC_51',
+                                'TC_52',
+                                'TC_53',
+                                'TC_54',
+                                'TC_55',
+                                'TC_56',
+                                'TC_57',
+                                'TC_58',
+                                'TC_59',
+                                'TC_60',
+                                'DischargeR3',
+                                'SuctionR3'
+                                ];
+
+                  
+                   
                    for(var i=1; i<table_length;i++){
-                       var htmltest = "<div class=\"col-md-"+table_length+"\">";
-                       htmltest+="<h1 class='h1'>"+$('#detail_body tr eq('+i+') td(0)').val()+" "+$('#detail_body tr eq('+i+') td(1)').val()+"</h1>";
-                       $('#selectform').append(htmltest)
+                       htmltest += "<div class=\"col-md-"+table_length+"\">";
+                       htmltest+="<h1 class='h1'>"+$('#detail_body tr:eq('+i+')').children().eq(0).text()+" "+$('#detail_body tr:eq('+i+')').children().eq(1).text()+"</h1>";
+                       
+                       if($('#detail_body tr:eq('+i+')').children().eq(0).text()=='ODU'){
+                           for(var j=0; j<odu_list.length; j++){
+                               htmltest+="<input class=\"custom-control-input\" type='checkbox' value=\""+odu_list[j]+"\">zz";
+                               htmltest+="<p>"+odu_list[j]+"</p>";
+                           }
+                       }
+                       htmltest+="</div>";
+
+
+                     
                    }
+                   console.log(htmltest)
+                   htmltest+="</div>";
+                   console.log("?"+rowData);
+                   $('#selectgraph').html(htmltest);
+
+
                 }
                         
 
