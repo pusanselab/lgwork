@@ -1,0 +1,85 @@
+<head>
+    <title>LG Air Data Virtualization</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">LG Air</a>
+    <div class="col-10 collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="data_search.html">데이터 검색</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="option.html">Option</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-1" >
+        <a href="login.html"><button style="width: 100px" type="button">Login</button></a>
+    </div>
+</nav>
+<div class="card" style="margin: 50px">
+    <div class="card-header">
+        단위 설정
+    </div>
+    <div class="row" style="margin: 20px;">
+        LGMV 온도 단위
+        <select id="lgmv_temp" style="margin-left: 100px; width: 100px;">
+            <option selected>선택</option>
+            <option value="F">F</option>
+            <option value="C">C</option>
+        </select>
+    </div>
+    <div class="row" style="margin: 20px;">
+        LGMV 압력 단위
+        <select id="lgmv_pressure" style="margin-left: 100px; width: 100px;">
+            <option selected>선택</option>
+            <option value="kpa">kpa</option>
+            <option value="psi">psi</option>
+            <option value="kgf/cm2">kgf/cm2</option>
+        </select>
+    </div>
+    <div class="row" style="margin: 20px;">
+    LGMV 유량 단위
+        <select id="lgmv_flux" style="margin-left: 100px; width: 100px;">
+            <option selected>선택</option>
+            <option value="m3/h">m3/h</option>
+            <option value="gal/m">gal/m</option>
+        </select>
+    </div>
+    <button id="save_btn" type="button" class="btn btn-success" style="width: 100px; margin: 10px">save</button>
+</div>
+</div>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script>
+    $(document).ready(function() {
+        if (localStorage['lgmv_temp']) {
+            $('#lgmv_temp').val(localStorage['lgmv_temp'])
+        }
+        if (localStorage['lgmv_pressure']) {
+            $('#lgmv_pressure').val(localStorage['lgmv_pressure'])
+        }
+        if (localStorage['lgmv_flux']) {
+            $('#lgmv_flux').val(localStorage['lgmv_flux'])
+        }
+    });
+
+    $("#save_btn").click(function() {
+        lgmv_temp = $('#lgmv_temp option:selected').val()
+        lgmv_pressure = $('#lgmv_pressure option:selected').val()
+        lgmv_flux = $('#lgmv_flux option:selected').val()
+        localStorage['lgmv_temp'] = lgmv_temp
+        localStorage['lgmv_pressure'] = lgmv_pressure
+        localStorage['lgmv_flux'] = lgmv_flux
+        console.log(lgmv_temp)
+        console.log(lgmv_pressure)
+        console.log(lgmv_flux)
+    });
+</script>
+</body>

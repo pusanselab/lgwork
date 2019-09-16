@@ -1,239 +1,165 @@
-<!DOCTYPE HTML>
-<!--
-	Landed by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>LG Air Data Virtualization</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
+<head>
+	<title>LG Air Data Virtualization</title>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<a class="navbar-brand" href="#">LG Air</a>
+	<div class="col-10 collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a class="nav-link" href="index.html">Home</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="data_search.html">데이터 검색</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="option.html">Option</a>
+			</li>
+		</ul>
+	</div>
+	<div class="col-1" >
+		<a href="login.html"><button style="width: 100px" type="button">Logout</button></a>
+	</div>
+</nav>
 
-
-
-	<body class="is-preload landing">
-		<div id="page-wrapper">
-
-			<!-- Header -->
-				<header id="header">
-					<h1 id="logo" style="font-size: 20pt;"><a href="index.html">LG Air Data Virtualization</a></h1>
-					<nav id="nav">
-						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li><a href="data_search.html">Data search</a></li>
-							<li><a href="#">Option</a>
-								<ul>
-									<li>
-									<a href="#">temperature</a> 
-									<select name="temperature">
-										<option value="">온도단위</option>
-										<option value="C">C</option>
-										<option value="F">F</option>
-									</select>
-									</li>
-								
-									<li>
-									<a href="#">pressure</a> 
-									<select name="pressure">
-										<option value="">압력단위</option>
-										<option value="kPa">kPa</option>
-										<option value="회사원">Pa</option>
-									</select>
-									</li>
-								
-									<li>
-									<a href="#">Flux</a>  
-									<select name="flux">
-										<option value="">선속단위</option>
-										<option value="m3/h">m3/h</option>
-										<option value="m3/m">m3/m</option>
-										<option value="m3/s">m3/s</option>
-									</select>
-									</li>
-								</ul>
-							</li>
-							<li><a>ManagerMode</a>
-								<ul>
-								<li>
-								<a style="display: block; margin-left: 28pt;">Password</a>
-								<input type="text" name="model_name" maxlength="10" value="-">
-								<input type="submit" value="Log-in">
-								</li>
-								</ul>
-							</li>
-							<li><a href="login.html" class="button primary">Log Out</a></li>
-					</nav>
-				</header>
-				<ul>
-					</br>
-					</br>
-					</br>
-					<p>Overview</p>
-					<div id="my_dataviz">
-						<p>Dataset by Model</p>
-					</div>
-					
-					<div>
-						<p>Dataset by Test</p>
-						<svg width="300" height="150" id="svg_3"></svg>
-					</div>
-				</ul>
-
-
-			<!-- Footer -->
-				<footer id="footer">
-					<ul class="icons">
-						<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
-						<li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-						<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-						<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-						<li><a href="#" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
-					</ul>
-					<ul class="copyright">
-						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-					</ul>
-				</footer>
-
+<div class="container" style="margin-right: auto; margin-left: auto">
+	<div class="row" style="margin: 40px; margin-left: 40px;">
+		전체 DB 수 :
+		<p id="num_db" style="margin-left: 10px"></p>
+	</div>
+	<div class="row">
+		<div class="col-6">
+			<div class="card-header">
+				Dataset by Model
+			</div>
+			<div id="my_dataviz">
+			</div>
 		</div>
+		<div class=" col-6">
+			<div class="card-header">
+				Dataset by Test
+			</div>
+		</div>
+	</div>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/jquery.dropotron.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-			<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
-			<script src="https://d3js.org/d3-array.v2.min.js"></script>
-			<script src="https://d3js.org/d3-color.v1.min.js"></script>
-			<script src="https://d3js.org/d3-format.v1.min.js"></script>
-			<script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
-			<script src="https://d3js.org/d3-time.v1.min.js"></script>
-			<script src="https://d3js.org/d3-time-format.v2.min.js"></script>
-			<script src="https://d3js.org/d3-scale.v3.min.js"></script>
-			
-			<script src="https://d3js.org/d3.v4.min.js"></script>
-			<script>
-			
+</div>
 
-		
-			
-			var x=[
-                "Multi V H/P",    
-                "Multi V H/R",
-                "Multi V ARUM",
-                "Multi Water",        
-                "Multi V S",
-                "Multi V M",
-                "Multi V Space",
-                "GHP",
-                "Chiller",
-                "Therma V",
-                "Single Package",
-                "Single&Multi",
-                "Refrigeration",
-				]
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script src="https://d3js.org/d3-array.v2.min.js"></script>
+<script src="https://d3js.org/d3-color.v1.min.js"></script>
+<script src="https://d3js.org/d3-format.v1.min.js"></script>
+<script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+<script src="https://d3js.org/d3-time.v1.min.js"></script>
+<script src="https://d3js.org/d3-time-format.v2.min.js"></script>
+<script src="https://d3js.org/d3-scale.v3.min.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+    var num_db = 0
+    var x=[
+        "Multi V H/P",
+        "Multi V H/R",
+        "Multi V ARUM",
+        "Multi Water",
+        "Multi V S",
+        "Multi V M",
+        "Multi V Space",
+        "GHP",
+        "Chiller",
+        "Therma V",
+        "Single Package",
+        "Single&Multi",
+        "Refrigeration",
+		]
+    $(document).ready(function(){
 
+        console.log("enter login");
+        $.ajax({
+            type: 'post'
+            , url: 'http://localhost:3000/api/overview'
 
+            , beforeSend: function() {
+                $('#ajax_load_indicator').show().fadeIn('fast');
+            }
+            , success: function(data1) {
 
-			
-			
+                var margin = {top: 30, right: 30, bottom: 70, left: 60},
+                    width = 460 - margin.left - margin.right,
+                    height = 400 - margin.top - margin.bottom;
 
-			$(document).ready(function(){
-				console.log("enter login");
-				$.ajax({
-					type: 'post'
-					, url: 'http://localhost:3000/api/overview'
-						
-					, beforeSend: function() {
-						$('#ajax_load_indicator').show().fadeIn('fast'); 
-					}
-					, success: function(data1) {
+                // append the svg object to the body of the page
+                var svg = d3.select("#my_dataviz")
+                    .append("svg")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                    .attr("transform",
+                        "translate(" + margin.left + "," + margin.top + ")");
 
-						var margin = {top: 30, right: 30, bottom: 70, left: 60},
-							width = 460 - margin.left - margin.right,
-							height = 400 - margin.top - margin.bottom;
+                // Parse the Data
+                console.log(data1.content.model);
+				num_db = data1.content.length
+                var data = data1.content.model;
+                num_db = data.length
+				$("#num_db").html(num_db + "개")
+                //
 
-						// append the svg object to the body of the page
-						var svg = d3.select("#my_dataviz")
-						.append("svg")
-							.attr("width", width + margin.left + margin.right)
-							.attr("height", height + margin.top + margin.bottom)
-						.append("g")
-							.attr("transform",
-								"translate(" + margin.left + "," + margin.top + ")");
+                // X axis
+                var x = d3.scaleBand()
+                    .range([0, width])
+                    .domain(data.map(function(d) { return d.name; }))
+                    .paddingInner(0.2);
+                svg.append("g")
+                    .attr("transform", "translate(0," + height + ")")
+                    .call(d3.axisBottom(x))
+                    .selectAll("text")
+                    .attr("transform", "translate(-10,0)rotate(-45)")
+                    .style("text-anchor", "end")
+                    .style("color","#69b3a2");
 
-						// Parse the Data
-						console.log(data1.content.model);
-						var data = data1.content.model;
-						
-							//
+                // Add Y axis
 
-						// X axis
-						var x = d3.scaleBand()
-						.range([0, width])
-						.domain(data.map(function(d) { return d.name; }))
-						.paddingInner(0.2);
-						svg.append("g")
-						.attr("transform", "translate(0," + height + ")")
-						.call(d3.axisBottom(x))
-						.selectAll("text")
-							.attr("transform", "translate(-10,0)rotate(-45)")
-							.style("text-anchor", "end")
-							.style("color","#69b3a2");
+                var y = d3.scaleLinear()
+                    .domain([0, d3.max(data, function(d){ return d.count;})+3])
+                    .range([ height, 0]);
+                svg.append("g")
+                    .call(d3.axisLeft(y));
 
-						// Add Y axis
-						
-						var y = d3.scaleLinear()
-						.domain([0, d3.max(data, function(d){ return d.count;})+3])
-						.range([ height, 0]);
-						svg.append("g")
-						.call(d3.axisLeft(y));
-
-						// Bars
-						svg.selectAll("mybar")
-						.data(data)
-						.enter()
-						.append("rect")
-							.attr("x", function(d) { return x(d.name); })
-							.attr("y", function(d) { return y(d.count); })
-							.attr("width", x.bandwidth())
-							.attr("height", function(d) { return height - y(d.count); })
-							.attr("fill", "#69b3a2")
-							.on("mouseover", function() { tooltip.style("display", null); })
-            				.on("mouseout",  function() { tooltip.style("display", "none"); })
-							.on("mousemove", function(d) {
-								tooltip.style("left", (d3.event.pageX + 10) + "px");
-								tooltip.style("top", (d3.event.pageY - 10) + "px");
-								tooltip.text(d.count); });
-										
-						
-						var tooltip = d3.select("body").append("div")
-        								.attr("class", "toolTip")
-        								.style("display", "none");
+                // Bars
+                svg.selectAll("mybar")
+                    .data(data)
+                    .enter()
+                    .append("rect")
+                    .attr("x", function(d) { return x(d.name); })
+                    .attr("y", function(d) { return y(d.count); })
+                    .attr("width", x.bandwidth())
+                    .attr("height", function(d) { return height - y(d.count); })
+                    .attr("fill", "#69b3a2")
+                    .on("mouseover", function() { tooltip.style("display", null); })
+                    .on("mouseout",  function() { tooltip.style("display", "none"); })
+                    .on("mousemove", function(d) {
+                        tooltip.style("left", (d3.event.pageX + 10) + "px");
+                        tooltip.style("top", (d3.event.pageY - 10) + "px");
+                        tooltip.text(d.count); });
 
 
-							
-						}
-						, error: function(data, status, err) {
-							console.log("error forward : "+data);
-							alert('서버와의 통신이 실패했습니다.');
-						}
-						, complete: function() { 
-							$('#ajax_load_indicator').fadeOut();
-						}
-					});
-				});
-						
-			</script>
+                var tooltip = d3.select("body").append("div")
+                    .attr("class", "toolTip")
+                    .style("display", "none");
 
-	</body>
-</html>
+
+
+            }
+            , error: function(data, status, err) {
+                console.log("error forward : "+data);
+                alert('서버와의 통신이 실패했습니다.');
+            }
+            , complete: function() {
+                $('#ajax_load_indicator').fadeOut();
+            }
+        });
+    });
+</script>
+</body>
