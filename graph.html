@@ -49,7 +49,31 @@
             <div id="realgraph">
 
             </div>
-            <div id="selectgraph">
+            <div id="selectgraph1
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            ">
+                <form id="selectgraph">
+
+                </form>
                 
 
             </div>
@@ -608,13 +632,22 @@
                   
                    
                    for(var i=1; i<table_length;i++){
-                       htmltest += "<div class=\"col-md-"+table_length+"\">";
+                       htmltest += "<div class=\"col-md-"+5+"\">";
                        htmltest+="<h1 class='h1'>"+$('#detail_body tr:eq('+i+')').children().eq(0).text()+" "+$('#detail_body tr:eq('+i+')').children().eq(1).text()+"</h1>";
                        
                        if($('#detail_body tr:eq('+i+')').children().eq(0).text()=='ODU'){
                            for(var j=0; j<odu_list.length; j++){
-                               htmltest+="<input class=\"custom-control-input\" type='checkbox' value=\""+odu_list[j]+"\">zz";
-                               htmltest+="<p>"+odu_list[j]+"</p>";
+                               htmltest+="<input type='checkbox' id=\""+odu_list[j]+"\" value=\""+odu_list[j]+"\">";
+                               htmltest+="<label for=\""+odu_list[j]+"\">"+odu_list[j]+"</label>";
+                               htmltest+="<br/>";
+                           }
+                       }
+
+                       if($('#detail_body tr:eq('+i+')').children().eq(0).text()=='IDU'){
+                           for(var j=0; j<idu_list.length; j++){
+                               htmltest+="<input type='checkbox' id=\""+idu_list[j]+"\" value=\""+idu_list[j]+"\">";
+                               htmltest+="<label for=\""+idu_list[j]+"\">"+idu_list[j]+"</label>";
+                               htmltest+="<br/>";
                            }
                        }
                        htmltest+="</div>";
@@ -622,9 +655,8 @@
 
                      
                    }
-                   console.log(htmltest)
+            
                    htmltest+="</div>";
-                   console.log("?"+rowData);
                    $('#selectgraph').html(htmltest);
 
 
