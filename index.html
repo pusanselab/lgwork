@@ -137,7 +137,8 @@
                     .attr("width", x.bandwidth())
                     .attr("height", function(d) { return height - y(d.count); })
                     .attr("fill", "#69b3a2")
-                    .on("mouseover", function() { tooltip.style("display", null); })
+                    .on("mouseover", function() { tooltip.style("display", null);
+                                                  tooltip.style("color","black") })
                     .on("mouseout",  function() { tooltip.style("display", "none"); })
                     .on("mousemove", function(d) {
                         tooltip.style("left", (d3.event.pageX + 10) + "px");
