@@ -41,7 +41,9 @@
 		<div class=" col-6">
 			<div class="card-header">
 				Dataset by Test
-			</div>
+            </div>
+            <div id="my_testviz">
+            </div>
 		</div>
 	</div>
 
@@ -72,7 +74,15 @@
         "Single Package",
         "Single&Multi",
         "Refrigeration",
-		]
+		];
+    var testx=[
+        "성능",
+        "냉방성능",
+        "난방성능",
+        "안정성",
+        "신뢰성",
+        "기타"
+    ];
     $(document).ready(function(){
 
         console.log("enter login");
@@ -97,12 +107,24 @@
                     .append("g")
                     .attr("transform",
                         "translate(" + margin.left + "," + margin.top + ")");
+                
+                var svg2 = d3.select("#my_testviz")
+                    .append("svg")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                    .attr("transform",
+                        "translate(" + margin.left + "," + margin.top + ")");
 
                 // Parse the Data
                 console.log(data1.content.model);
-				num_db = data1.content.length
+			
                 var data = data1.content.model;
-                num_db = data.length
+                var data2 = data1.content.test;
+                data.forEach(element => {
+                    num_db+=element.count;
+                });
+                
 				$("#num_db").html(num_db + "개")
                 //
 
@@ -119,6 +141,18 @@
                     .style("text-anchor", "end")
                     .style("color","#69b3a2");
 
+                var x2 = d3.scaleBand()
+                    .range([0, width])
+                    .domain(data2.map(function(d) { return d.name; }))
+                    .paddingInner(0.2);
+                svg2.append("g")
+                    .attr("transform", "translate(0," + height + ")")
+                    .call(d3.axisBottom(x2))
+                    .selectAll("text")
+                    .attr("transform", "translate(-10,0)rotate(-45)")
+                    .style("text-anchor", "end")
+                    .style("color","#69b3a2");
+
                 // Add Y axis
 
                 var y = d3.scaleLinear()
@@ -126,6 +160,12 @@
                     .range([ height, 0]);
                 svg.append("g")
                     .call(d3.axisLeft(y));
+
+                var y2 = d3.scaleLinear()
+                    .domain([0, d3.max(data2, function(d){ return d.count;})+3])
+                    .range([ height, 0]);
+                svg2.append("g")
+                    .call(d3.axisLeft(y2));
 
                 // Bars
                 svg.selectAll("mybar")
@@ -138,7 +178,24 @@
                     .attr("height", function(d) { return height - y(d.count); })
                     .attr("fill", "#69b3a2")
                     .on("mouseover", function() { tooltip.style("display", null);
-                                                  tooltip.style("color","black") })
+                                                  tooltip.style("color","white") })
+                    .on("mouseout",  function() { tooltip.style("display", "none"); })
+                    .on("mousemove", function(d) {
+                        tooltip.style("left", (d3.event.pageX + 10) + "px");
+                        tooltip.style("top", (d3.event.pageY - 10) + "px");
+                        tooltip.text(d.count); });
+
+                svg2.selectAll("mybar")
+                    .data(data2)
+                    .enter()
+                    .append("rect")
+                    .attr("x", function(d) { return x2(d.name); })
+                    .attr("y", function(d) { return y2(d.count); })
+                    .attr("width", x2.bandwidth())
+                    .attr("height", function(d) { return height - y2(d.count); })
+                    .attr("fill", "#69b3a2")
+                    .on("mouseover", function() { tooltip.style("display", null);
+                                                  tooltip.style("color","white") })
                     .on("mouseout",  function() { tooltip.style("display", "none"); })
                     .on("mousemove", function(d) {
                         tooltip.style("left", (d3.event.pageX + 10) + "px");

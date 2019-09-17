@@ -620,11 +620,13 @@
                        }
 
                        if($('#detail_body tr:eq('+i+')').children().eq(0).text()=='IDU'){
+                           htmltest+="<form id=\'idu_select\'>";
                            for(var j=0; j<idu_list.length; j++){
-                               htmltest+="<input type='checkbox' id=\""+idu_list[j]+"\" value=\""+idu_list[j]+"\">";
+                               htmltest+="<input type='checkbox' name=\'idubox'\ id=\""+idu_list[j]+"\" onclick=\"graph_idu(\'"+$('#detail_body tr:eq('+i+')').children().eq(1).text()+"\',\'"+idu_list[j]+"\')\" value=\""+idu_list[j]+"\">";
                                htmltest+="<label for=\""+idu_list[j]+"\">"+idu_list[j]+"</label>";
                                htmltest+="<br/>";
                            }
+                           htmltest+="</form>";
                        }
                        
                        if($('#detail_body tr:eq('+i+')').children().eq(0).text()=='HRU'){
@@ -702,44 +704,44 @@
 
                 }
 
-                // function iwannaseegraph(){
-                //     console.log("enter login");
-				// 		$.ajax({
-				// 			type: 'post'
-				// 			, url: 'http://localhost:3000/api/login'
-				// 			, data: $("#frm").serialize()
-				// 			, beforeSend: function() {
-				// 				$('#ajax_load_indicator').show().fadeIn('fast'); 
-				// 			}
-				// 			, success: function(data) {
-				// 				var response = data.message;
-				// 				console.log("success forward : "+response);
-				// 				// 메세지 할당
-				// 				switch(response) {
-				// 					case "nomatch": 
-				// 						msg = "아이디 또는 비밀번호가 일치하지 않습니다."; break;
-				// 					case "failure": 
-				// 						msg = "로그인에 실패 했습니다."; break;
-				// 					default : 
-				// 						msg = "존재하지 않는 사용자입니다."; break;
-				// 				}
-				// 				// 분기 처리
-				// 				if(response=="success"){
-				// 					window.location.href = "http://localhost/index.html";
-									
-				// 				} else {
-				// 					alert(msg);
-				// 				}
-				// 			}
-				// 			, error: function(data, status, err) {
-				// 				console.log("error forward : "+data);
-				// 				alert('서버와의 통신이 실패했습니다.');
-				// 			}
-				// 			, complete: function() { 
-				// 				$('#ajax_load_indicator').fadeOut();
-				// 			}
-				// 		});
-                // }
+                
+
+                function graph_idu(section,col){
+                    console.log("enter login");
+                    console.log($("input:checkbox[name=idubox]:checked").length);
+                    var val = location.href.substr(
+                    location.href.lastIndexOf('=') + 1);
+                    var params="header_uid="+val
+                                +"&section_count="+section
+                                +"&column_name="+col;
+                    console.log(params);
+
+						$.ajax({
+							type: 'post'
+							, url: 'http://localhost:3000/api/graph_idu'
+							, data: params
+							, beforeSend: function() {
+								$('#ajax_load_indicator').show().fadeIn('fast'); 
+							}
+							, success: function(data) {
+                                console.log("일단 통신은 성공");
+								if($("input:checkbox:checked").length >8){
+                                    $('input[id='+col+']').prop('checked', false);
+                                    alert("최대 8개까지 가능합니다.");
+                                }
+                                else{
+
+                                }
+							}
+							, error: function(data, status, err) {
+								console.log("error forward : "+data);
+								alert('서버와의 통신이 실패했습니다.');
+							}
+							, complete: function() { 
+								$('#ajax_load_indicator').fadeOut();
+							}
+						});
+                }
                         
 
     </script>
