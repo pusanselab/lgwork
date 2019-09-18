@@ -121,7 +121,6 @@
 
                     </select>
                 </div>
-            </form>
 
         </div>
     </div>
@@ -132,124 +131,100 @@
     </div>
     <div class="container" style="display: flex">
         <div class="row">
-            <div>
+			<div class="col-md-3">
                 <div class="form-inline">
-                    Model 명 :
                     <input type="text" class="form-control" style="margin:10px" name="lgmv_model_name" maxlength="10"
-                           placeholder="-">
+                           placeholder="Model 명">
                 </div>
                 <div class="form-inline">
-                    Serial 명 :
                     <input type="text" class="form-control" style="margin:10px" name="lgmv_serial_number" maxlength="10"
-                           placeholder="-">
+                           placeholder="Serial 명">
                 </div>
                 <div class="form-inline">
-                    냉매 :
                     <input type="text" class="form-control" style="margin:10px" name="lgmv_r" maxlength="10"
-                           placeholder="-">
+                           placeholder="냉매">
                 </div>
                 <div class="form-inline">
-                    main S/W :
-                    <input type="text" class="form-control" style="margin:10px" name="lgmv_main_ver" placeholder="-">
+                    <input type="text" class="form-control" style="margin:10px" name="lgmv_main_ver" placeholder="main S/W">
                 </div>
                 <div class="form-inline">
-                    EEPROM S/W :
-                    <input type="text" class="form-control" style="margin:10px" name="lgmv_eep_ver" placeholder="-">
+                    <input type="text" class="form-control" style="margin:10px" name="lgmv_eep_ver" placeholder="EEPROM S/W">
                 </div>
                 <div class="form-inline">
-                    용량 :
-                    <input type="text" class="form-control" style="margin:10px" name="calorimeter_cap" placeholder="-">
+                    <input type="text" class="form-control" style="margin:10px" name="calorimeter_cap" placeholder="용량">
                 </div>
                 <div class="form-inline">
-                    전원 :
-                    <input type="text" class="form-control" style="margin:10px" name="calorimeter_power" placeholder="-">
+                    <input type="text" class="form-control" style="margin:10px" name="calorimeter_power" placeholder="전원">
                 </div>
                 <div class="form-inline">
-                    효율 :
-                    <input type="text" class="form-control" style="margin:10px" name="calorimeter_eer" placeholder="-">
+                    <input type="text" class="form-control" style="margin:10px" name="calorimeter_eer" placeholder="효율">
                 </div>
                 <div class="form-inline">
-                    전압 :
                     <input type="text" class="form-control" style="margin:10px" name="calorimeter_power_vol"
-                           placeholder="-">
+                           placeholder="전압">
                 </div>
             </div>
 
-            <div class="col-md-5">
+            <div class="col-md-3">
                 <div class="form-inline">
-                    ID 습구온도 :
-                    <input type="text" class="form-control" style="margin:10px" name="calorimeter_id_wb" placeholder="-">
+                    <input type="text" class="form-control" style="margin:10px" name="calorimeter_id_wb" placeholder="ID 습구온도">
                 </div>
                 <div class="form-inline">
-                    ID 건구온도 :
-                    <input type="text" class="form-control" style="margin:10px" name="calorimeter_id_db" placeholder="-">
+                    <input type="text" class="form-control" style="margin:10px" name="calorimeter_id_db" placeholder="ID 건구온도">
                 </div>
                 <div class="form-inline">
-                    OD 습구온도 :
-                    <input type="text" class="form-control" style="margin:10px" name="calorimeter_od_wb" placeholder="-">
+                    <input type="text" class="form-control" style="margin:10px" name="calorimeter_od_wb" placeholder="OD 습구온도">
                 </div>
                 <div class="form-inline">
-                    OD 건구온도 :
-                    <input type="text" class="form-control" style="margin:10px" name="calorimeter_od_db" placeholder="-">
+                    <input type="text" class="form-control" style="margin:10px" name="calorimeter_od_db" placeholder="OD 건구온도">
                 </div>
                 <div class="form-inline">
-                    파일생성날짜 :
-                    <input type="text" class="form-control" style="margin:10px" name="conn_file_date" placeholder="-">
+                    <input type="text" class="form-control" style="margin:10px" name="conn_file_date" placeholder="파일생성날짜">
                 </div>
                 <div class="form-inline">
-                    IDU 샤시 :
-                    <input type="text" class="form-control" style="margin:10px" name="idu_chassis" placeholder="-">
+                    <input type="text" class="form-control" style="margin:10px" name="idu_chassis" placeholder="IDU 샤시">
                 </div>
                 <div class="form-inline">
-                    ODU 샤시 :
-                    <input type="text" class="form-control" style="margin:10px" name="odu_chassis" placeholder="-">
+                    <input type="text" class="form-control" style="margin:10px" name="odu_chassis" placeholder="ODU 샤시">
                 </div>
                 <div class="form-inline">
-                    개발프로세스(상) :
-                    <input type="text" class="form-control" style="margin:10px" name="plm_step1" placeholder="-">
+                    <input type="text" class="form-control" style="margin:10px" name="plm_step1" placeholder="개발프로세스(상)">
                 </div>
                 <div class="form-inline">
-                    개발프로세스(하) :
-                    <input type="text" class="form-control" style="margin:10px" name="plm_step2" placeholder="-">
+                    <input type="text" class="form-control" style="margin:10px" name="plm_step2" placeholder="개발프로세스(하)">
                 </div>
             </div>
 
-            <div class="col-md-5">
+            <div class="col-md-3">
                 <div class="form-inline">
-                    구분 :
-                    <input type="text" class="form-control" style="margin:10px" name="test_step1" placeholder="-">
+                    <input type="text" class="form-control" style="margin:10px" name="test_step1" placeholder="구분">
                 </div>
                 <div class="form-inline">
-                    시험항목 :
-                    <input type="text" class="form-control" style="margin:10px" name="test_step2" placeholder="-">
+                    <input type="text" class="form-control" style="margin:10px" name="test_step2" placeholder="시험항목">
                 </div>
                 <div class="form-inline">
-                    실험자 :
-                    <input type="text" class="form-control" style="margin:10px" name="conn_tester" placeholder="-">
+                    <input type="text" class="form-control" style="margin:10px" name="conn_tester" placeholder="실험자">
                 </div>
                 <div class="form-inline">
-                    챔버번호 :
-                    <input type="text" class="form-control" style="margin:10px" name="conn_testroom_number" placeholder="-">
+                    <input type="text" class="form-control" style="margin:10px" name="conn_testroom_number" placeholder="챔버번호">
                 </div>
                 <div class="form-inline">
-                    배관정보 :
-                    <input type="text" class="form-control" style="margin:10px" name="conn_pipe_type" placeholder="-">
+                    <input type="text" class="form-control" style="margin:10px" name="conn_pipe_type" placeholder="배관정보">
                 </div>
                 <div class="form-inline">
-                    TEST 결과 :
-                    <input type="text" class="form-control" style="margin:10px" name="conn_test_result" placeholder="-">
+                    <input type="text" class="form-control" style="margin:10px" name="conn_test_result" placeholder="TEST 결과">
                 </div>
                 <div class="form-inline">
-                    설명 :
-                    <input type="text" class="form-control" style="margin:10px" name="conn_memo" placeholder="-">
+                    <input type="text" class="form-control" style="margin:10px" name="conn_memo" placeholder="설명">
                 </div>
-                <div>날짜입력 : <input type="text" ID="datepicker" class="input-append date"/> ~ <input type="text"
+                <div>날짜입력<input type="text" ID="datepicker" class="input-append date"/> ~ <input type="text"
                                                                                                     id="datepicker"
                                                                                                     class="input-append date"/>
                 </div>
             </div>
         </div>
     </div>
+</form>
 
 </div>
 <input type="submit" value="검색" onclick="dataSearch();">
@@ -356,7 +331,7 @@
         </div>
 
         <div id="_cold" style="display:none" class="table-responsive">
-
+			<h2>냉방 성능 최대 효율</h2>
             <table id="cold_table" class="table table-striped table-bordered table-hover">
                 <tbody id="cold_tbody">
                 <tr>
