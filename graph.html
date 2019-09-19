@@ -611,14 +611,6 @@
                        htmltest += "<div class=\"col-md-"+5+"\">";
                        htmltest+="<h1 class='h1'>"+$('#detail_body tr:eq('+i+')').children().eq(0).text()+" "+$('#detail_body tr:eq('+i+')').children().eq(1).text()+"</h1>";
                        
-                       if($('#detail_body tr:eq('+i+')').children().eq(0).text()=='ODU'){
-                           for(var j=0; j<odu_list.length; j++){
-                               htmltest+="<input type='checkbox' id=\""+odu_list[j]+"\" value=\""+odu_list[j]+"\">";
-                               htmltest+="<label for=\""+odu_list[j]+"\">"+odu_list[j]+"</label>";
-                               htmltest+="<br/>";
-                           }
-                       }
-
                        if($('#detail_body tr:eq('+i+')').children().eq(0).text()=='IDU'){
                            htmltest+="<form id=\'idu_select\'>";
                            for(var j=0; j<idu_list.length; j++){
@@ -628,69 +620,95 @@
                            }
                            htmltest+="</form>";
                        }
+
+                       if($('#detail_body tr:eq('+i+')').children().eq(0).text()=='ODU'){
+                           htmltest+="<form id=\'odu_select\'>";
+                           for(var j=0; j<odu_list.length; j++){
+                               htmltest+="<input type='checkbox' name=\'odubox'\ id=\""+odu_list[j]+"\" onclick=\"graph_odu(\'"+$('#detail_body tr:eq('+i+')').children().eq(1).text()+"\',\'"+odu_list[j]+"\')\" value=\""+odu_list[j]+"\">";
+                               htmltest+="<label for=\""+odu_list[j]+"\">"+odu_list[j]+"</label>";
+                               htmltest+="<br/>";
+                           }
+                           htmltest+="</form>";
+                       }
                        
                        if($('#detail_body tr:eq('+i+')').children().eq(0).text()=='HRU'){
+                           htmltest+="<form id=\'hru_select\'>";
                            for(var j=0; j<hru_list.length; j++){
-                               htmltest+="<input type='checkbox' id=\""+hru_list[j]+"\" value=\""+hru_list[j]+"\">";
+                               htmltest+="<input type='checkbox' name=\'hrubox'\ id=\""+hru_list[j]+"\" onclick=\"graph_hru(\'"+$('#detail_body tr:eq('+i+')').children().eq(1).text()+"\',\'"+hru_list[j]+"\')\" value=\""+hru_list[j]+"\">";
                                htmltest+="<label for=\""+hru_list[j]+"\">"+hru_list[j]+"</label>";
                                htmltest+="<br/>";
                            }
+                           htmltest+="</form>";
                        }
 
                        if($('#detail_body tr:eq('+i+')').children().eq(0).text()=='Calorimeter'){
+                           htmltest+="<form id=\'cal_select\'>";
                            for(var j=0; j<cal_list.length; j++){
-                               htmltest+="<input type='checkbox' id=\""+cal_list[j]+"\" value=\""+cal_list[j]+"\">";
+                               htmltest+="<input type='checkbox' name=\'calbox'\ id=\""+cal_list[j]+"\" onclick=\"graph_cal(\'"+$('#detail_body tr:eq('+i+')').children().eq(1).text()+"\',\'"+cal_list[j]+"\')\" value=\""+cal_list[j]+"\">";
                                htmltest+="<label for=\""+cal_list[j]+"\">"+cal_list[j]+"</label>";
                                htmltest+="<br/>";
                            }
+                           htmltest+="</form>";
                        }
 
                        if($('#detail_body tr:eq('+i+')').children().eq(0).text()=='DXC'){
+                           htmltest+="<form id=\'dxc_select\'>";
                            for(var j=0; j<dxc_list.length; j++){
-                               htmltest+="<input type='checkbox' id=\""+dxc_list[j]+"\" value=\""+dxc_list[j]+"\">";
+                               htmltest+="<input type='checkbox' name=\'dxcbox'\ id=\""+dxc_list[j]+"\" onclick=\"graph_dxc(\'"+$('#detail_body tr:eq('+i+')').children().eq(1).text()+"\',\'"+dxc_list[j]+"\')\" value=\""+dxc_list[j]+"\">";
                                htmltest+="<label for=\""+dxc_list[j]+"\">"+dxc_list[j]+"</label>";
                                htmltest+="<br/>";
                            }
+                           htmltest+="</form>";
                        }
 
                        if($('#detail_body tr:eq('+i+')').children().eq(0).text()=='AWHP'){
+                           htmltest+="<form id=\'awhp_select\'>";
                            for(var j=0; j<awhp_list.length; j++){
-                               htmltest+="<input type='checkbox' id=\""+awhp_list[j]+"\" value=\""+awhp_list[j]+"\">";
+                               htmltest+="<input type='checkbox' name=\'awhpbox'\ id=\""+awhp_list[j]+"\" onclick=\"graph_awhp(\'"+$('#detail_body tr:eq('+i+')').children().eq(1).text()+"\',\'"+awhp_list[j]+"\')\" value=\""+awhp_list[j]+"\">";
                                htmltest+="<label for=\""+awhp_list[j]+"\">"+awhp_list[j]+"</label>";
                                htmltest+="<br/>";
                            }
+                           htmltest+="</form>";
                        }
 
                        if($('#detail_body tr:eq('+i+')').children().eq(0).text()=='SHOWCASE'){
+                           htmltest+="<form id=\'showcase_select\'>";
                            for(var j=0; j<showcase_list.length; j++){
-                               htmltest+="<input type='checkbox' id=\""+showcase_list[j]+"\" value=\""+showcase_list[j]+"\">";
+                               htmltest+="<input type='checkbox' name=\'showcasebox'\ id=\""+showcase_list[j]+"\" onclick=\"graph_showcase(\'"+$('#detail_body tr:eq('+i+')').children().eq(1).text()+"\',\'"+showcase_list[j]+"\')\" value=\""+showcase_list[j]+"\">";
                                htmltest+="<label for=\""+showcase_list[j]+"\">"+showcase_list[j]+"</label>";
                                htmltest+="<br/>";
                            }
+                           htmltest+="</form>";
                        }
 
                        if($('#detail_body tr:eq('+i+')').children().eq(0).text()=='FAU'){
-                           for(var j=0; j<fau_list.length; j++){
-                               htmltest+="<input type='checkbox' id=\""+fau_list[j]+"\" value=\""+fau_list[j]+"\">";
+                           htmltest+="<form id=\'fau_select\'>";
+                           for(var j=0; j<idu_list.length; j++){
+                               htmltest+="<input type='checkbox' name=\'faubox'\ id=\""+fau_list[j]+"\" onclick=\"graph_fau(\'"+$('#detail_body tr:eq('+i+')').children().eq(1).text()+"\',\'"+fau_list[j]+"\')\" value=\""+fau_list[j]+"\">";
                                htmltest+="<label for=\""+fau_list[j]+"\">"+fau_list[j]+"</label>";
                                htmltest+="<br/>";
                            }
+                           htmltest+="</form>";
                        }
 
                        if($('#detail_body tr:eq('+i+')').children().eq(0).text()=='WHU'){
+                           htmltest+="<form id=\'whu_select\'>";
                            for(var j=0; j<whu_list.length; j++){
-                               htmltest+="<input type='checkbox' id=\""+whu_list[j]+"\" value=\""+whu_list[j]+"\">";
+                               htmltest+="<input type='checkbox' name=\'whubox'\ id=\""+whu_list[j]+"\" onclick=\"graph_whu(\'"+$('#detail_body tr:eq('+i+')').children().eq(1).text()+"\',\'"+whu_list[j]+"\')\" value=\""+whu_list[j]+"\">";
                                htmltest+="<label for=\""+whu_list[j]+"\">"+whu_list[j]+"</label>";
                                htmltest+="<br/>";
                            }
+                           htmltest+="</form>";
                        }
 
                        if($('#detail_body tr:eq('+i+')').children().eq(0).text()=='CASCADE'){
-                           for(var j=0; j<cascade.length; j++){
-                               htmltest+="<input type='checkbox' id=\""+cascade_list[j]+"\" value=\""+cascade_list[j]+"\">";
+                           htmltest+="<form id=\'cascade_select\'>";
+                           for(var j=0; j<cascade_list.length; j++){
+                               htmltest+="<input type='checkbox' name=\'cascadebox'\ id=\""+cascade_list[j]+"\" onclick=\"graph_cascade(\'"+$('#detail_body tr:eq('+i+')').children().eq(1).text()+"\',\'"+cascade_list[j]+"\')\" value=\""+cascade_list[j]+"\">";
                                htmltest+="<label for=\""+cascade_list[j]+"\">"+cascade_list[j]+"</label>";
                                htmltest+="<br/>";
                            }
+                           htmltest+="</form>";
                        }
                        htmltest+="</div>";
 
@@ -716,9 +734,336 @@
                                 +"&column_name="+col;
                     console.log(params);
 
+
+                
+
 						$.ajax({
 							type: 'post'
 							, url: 'http://localhost:3000/api/graph_idu'
+							, data: params
+							, beforeSend: function() {
+								$('#ajax_load_indicator').show().fadeIn('fast'); 
+							}
+							, success: function(data) {
+                                console.log("일단 통신은 성공");
+								if($("input:checkbox:checked").length >8){
+                                    $('input[id='+col+']').prop('checked', false);
+                                    alert("최대 8개까지 가능합니다.");
+                                }
+                                else{
+
+                                }
+							}
+							, error: function(data, status, err) {
+								console.log("error forward : "+data);
+								alert('서버와의 통신이 실패했습니다.');
+							}
+							, complete: function() { 
+								$('#ajax_load_indicator').fadeOut();
+							}
+						});
+                }
+                function graph_odu(section,col){
+                    console.log("enter login");
+                    console.log($("input:checkbox[name=odubox]:checked").length);
+                    var val = location.href.substr(
+                    location.href.lastIndexOf('=') + 1);
+                    var params="header_uid="+val
+                                +"&section_count="+section
+                                +"&column_name="+col;
+                    console.log(params);
+
+						$.ajax({
+							type: 'post'
+							, url: 'http://localhost:3000/api/graph_odu'
+							, data: params
+							, beforeSend: function() {
+								$('#ajax_load_indicator').show().fadeIn('fast'); 
+							}
+							, success: function(data) {
+                                console.log("일단 통신은 성공");
+								if($("input:checkbox:checked").length >8){
+                                    $('input[id='+col+']').prop('checked', false);
+                                    alert("최대 8개까지 가능합니다.");
+                                }
+                                else{
+
+                                }
+							}
+							, error: function(data, status, err) {
+								console.log("error forward : "+data);
+								alert('서버와의 통신이 실패했습니다.');
+							}
+							, complete: function() { 
+								$('#ajax_load_indicator').fadeOut();
+							}
+						});
+                }
+                function graph_hru(section,col){
+                    console.log("enter login");
+                    console.log($("input:checkbox[name=idubox]:checked").length);
+                    var val = location.href.substr(
+                    location.href.lastIndexOf('=') + 1);
+                    var params="header_uid="+val
+                                +"&section_count="+section
+                                +"&column_name="+col;
+                    console.log(params);
+
+						$.ajax({
+							type: 'post'
+							, url: 'http://localhost:3000/api/graph_hru'
+							, data: params
+							, beforeSend: function() {
+								$('#ajax_load_indicator').show().fadeIn('fast'); 
+							}
+							, success: function(data) {
+                                console.log("일단 통신은 성공");
+								if($("input:checkbox:checked").length >8){
+                                    $('input[id='+col+']').prop('checked', false);
+                                    alert("최대 8개까지 가능합니다.");
+                                }
+                                else{
+
+                                }
+							}
+							, error: function(data, status, err) {
+								console.log("error forward : "+data);
+								alert('서버와의 통신이 실패했습니다.');
+							}
+							, complete: function() { 
+								$('#ajax_load_indicator').fadeOut();
+							}
+						});
+                }
+                function graph_cal(section,col){
+                    console.log("enter login");
+                    console.log($("input:checkbox[name=idubox]:checked").length);
+                    var val = location.href.substr(
+                    location.href.lastIndexOf('=') + 1);
+                    var params="header_uid="+val
+                                +"&section_count="+section
+                                +"&column_name="+col;
+                    console.log(params);
+
+						$.ajax({
+							type: 'post'
+							, url: 'http://localhost:3000/api/graph_calolimeter'
+							, data: params
+							, beforeSend: function() {
+								$('#ajax_load_indicator').show().fadeIn('fast'); 
+							}
+							, success: function(data) {
+                                console.log("일단 통신은 성공");
+								if($("input:checkbox:checked").length >8){
+                                    $('input[id='+col+']').prop('checked', false);
+                                    alert("최대 8개까지 가능합니다.");
+                                }
+                                else{
+
+                                }
+							}
+							, error: function(data, status, err) {
+								console.log("error forward : "+data);
+								alert('서버와의 통신이 실패했습니다.');
+							}
+							, complete: function() { 
+								$('#ajax_load_indicator').fadeOut();
+							}
+						});
+                }
+                function graph_dxc(section,col){
+                    console.log("enter login");
+                    console.log($("input:checkbox[name=idubox]:checked").length);
+                    var val = location.href.substr(
+                    location.href.lastIndexOf('=') + 1);
+                    var params="header_uid="+val
+                                +"&section_count="+section
+                                +"&column_name="+col;
+                    console.log(params);
+
+						$.ajax({
+							type: 'post'
+							, url: 'http://localhost:3000/api/graph_sidu_dxc'
+							, data: params
+							, beforeSend: function() {
+								$('#ajax_load_indicator').show().fadeIn('fast'); 
+							}
+							, success: function(data) {
+                                console.log("일단 통신은 성공");
+								if($("input:checkbox:checked").length >8){
+                                    $('input[id='+col+']').prop('checked', false);
+                                    alert("최대 8개까지 가능합니다.");
+                                }
+                                else{
+
+                                }
+							}
+							, error: function(data, status, err) {
+								console.log("error forward : "+data);
+								alert('서버와의 통신이 실패했습니다.');
+							}
+							, complete: function() { 
+								$('#ajax_load_indicator').fadeOut();
+							}
+						});
+                }
+                function graph_awhp(section,col){
+                    console.log("enter login");
+                    console.log($("input:checkbox[name=idubox]:checked").length);
+                    var val = location.href.substr(
+                    location.href.lastIndexOf('=') + 1);
+                    var params="header_uid="+val
+                                +"&section_count="+section
+                                +"&column_name="+col;
+                    console.log(params);
+
+						$.ajax({
+							type: 'post'
+							, url: 'http://localhost:3000/api/graph_sidu_awhp'
+							, data: params
+							, beforeSend: function() {
+								$('#ajax_load_indicator').show().fadeIn('fast'); 
+							}
+							, success: function(data) {
+                                console.log("일단 통신은 성공");
+								if($("input:checkbox:checked").length >8){
+                                    $('input[id='+col+']').prop('checked', false);
+                                    alert("최대 8개까지 가능합니다.");
+                                }
+                                else{
+
+                                }
+							}
+							, error: function(data, status, err) {
+								console.log("error forward : "+data);
+								alert('서버와의 통신이 실패했습니다.');
+							}
+							, complete: function() { 
+								$('#ajax_load_indicator').fadeOut();
+							}
+						});
+                }
+                function graph_showcase(section,col){
+                    console.log("enter login");
+                    console.log($("input:checkbox[name=idubox]:checked").length);
+                    var val = location.href.substr(
+                    location.href.lastIndexOf('=') + 1);
+                    var params="header_uid="+val
+                                +"&section_count="+section
+                                +"&column_name="+col;
+                    console.log(params);
+
+						$.ajax({
+							type: 'post'
+							, url: 'http://localhost:3000/api/graph_sidu_showcase'
+							, data: params
+							, beforeSend: function() {
+								$('#ajax_load_indicator').show().fadeIn('fast'); 
+							}
+							, success: function(data) {
+                                console.log("일단 통신은 성공");
+								if($("input:checkbox:checked").length >8){
+                                    $('input[id='+col+']').prop('checked', false);
+                                    alert("최대 8개까지 가능합니다.");
+                                }
+                                else{
+
+                                }
+							}
+							, error: function(data, status, err) {
+								console.log("error forward : "+data);
+								alert('서버와의 통신이 실패했습니다.');
+							}
+							, complete: function() { 
+								$('#ajax_load_indicator').fadeOut();
+							}
+						});
+                }
+                function graph_fau(section,col){
+                    console.log("enter login");
+                    console.log($("input:checkbox[name=idubox]:checked").length);
+                    var val = location.href.substr(
+                    location.href.lastIndexOf('=') + 1);
+                    var params="header_uid="+val
+                                +"&section_count="+section
+                                +"&column_name="+col;
+                    console.log(params);
+
+						$.ajax({
+							type: 'post'
+							, url: 'http://localhost:3000/api/graph_sidu_fau'
+							, data: params
+							, beforeSend: function() {
+								$('#ajax_load_indicator').show().fadeIn('fast'); 
+							}
+							, success: function(data) {
+                                console.log("일단 통신은 성공");
+								if($("input:checkbox:checked").length >8){
+                                    $('input[id='+col+']').prop('checked', false);
+                                    alert("최대 8개까지 가능합니다.");
+                                }
+                                else{
+
+                                }
+							}
+							, error: function(data, status, err) {
+								console.log("error forward : "+data);
+								alert('서버와의 통신이 실패했습니다.');
+							}
+							, complete: function() { 
+								$('#ajax_load_indicator').fadeOut();
+							}
+						});
+                }
+                function graph_whu(section,col){
+                    console.log("enter login");
+                    console.log($("input:checkbox[name=idubox]:checked").length);
+                    var val = location.href.substr(
+                    location.href.lastIndexOf('=') + 1);
+                    var params="header_uid="+val
+                                +"&section_count="+section
+                                +"&column_name="+col;
+                    console.log(params);
+
+						$.ajax({
+							type: 'post'
+							, url: 'http://localhost:3000/api/graph_sidu_whu'
+							, data: params
+							, beforeSend: function() {
+								$('#ajax_load_indicator').show().fadeIn('fast'); 
+							}
+							, success: function(data) {
+                                console.log("일단 통신은 성공");
+								if($("input:checkbox:checked").length >8){
+                                    $('input[id='+col+']').prop('checked', false);
+                                    alert("최대 8개까지 가능합니다.");
+                                }
+                                else{
+
+                                }
+							}
+							, error: function(data, status, err) {
+								console.log("error forward : "+data);
+								alert('서버와의 통신이 실패했습니다.');
+							}
+							, complete: function() { 
+								$('#ajax_load_indicator').fadeOut();
+							}
+						});
+                }
+                function graph_cascade(section,col){
+                    console.log("enter login");
+                    console.log($("input:checkbox[name=idubox]:checked").length);
+                    var val = location.href.substr(
+                    location.href.lastIndexOf('=') + 1);
+                    var params="header_uid="+val
+                                +"&section_count="+section
+                                +"&column_name="+col;
+                    console.log(params);
+
+						$.ajax({
+							type: 'post'
+							, url: 'http://localhost:3000/api/graph_sidu_cascade'
 							, data: params
 							, beforeSend: function() {
 								$('#ajax_load_indicator').show().fadeIn('fast'); 
