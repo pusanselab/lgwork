@@ -46,9 +46,12 @@
 
         </div>
         <div id="graph">
-            <div id="realgraph">
-
-            </div>
+            <div id="Line_Controls_Chart">
+                <!-- 라인 차트 생성할 영역 -->
+                    <div id="lineChartArea" style="padding:0px 20px 0px 0px;"></div>
+                <!-- 컨트롤바를 생성할 영역 -->
+                    <div id="controlsArea" style="padding:0px 20px 0px 0px;"></div>
+              </div>
             <div id="selectgraph1">
                 <form id="selectgraph">
 
@@ -72,6 +75,7 @@
     <script src="assets/js/main.js"></script>
     <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://d3js.org/d3-array.v2.min.js"></script>
     <script src="https://d3js.org/d3-color.v1.min.js"></script>
     <script src="https://d3js.org/d3-format.v1.min.js"></script>
@@ -79,7 +83,7 @@
     <script src="https://d3js.org/d3-time.v1.min.js"></script>
     <script src="https://d3js.org/d3-time-format.v2.min.js"></script>
     <script src="https://d3js.org/d3-scale.v3.min.js"></script>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script data-require="d3@4.0.0" data-semver="4.0.0" src="https://d3js.org/d3.v4.min.js"></script>
     <script>
 
             $(document).ready(function(){
@@ -281,6 +285,8 @@
 
                 function removeUnit(obj){
                     var remove = $(obj).parent().parent();
+                    console.log("zz");
+                    console.log(remove);
                     remove.remove(); 
                 }
 
@@ -721,11 +727,18 @@
 
 
                 }
-
+                var array=new Array(999);
+                for(var i =0 ;i<999;i++){
+                    array[i]=new Array();
+                }
+                
+                    var index=0;
+                    var indexName=['Date'];
                 
 
                 function graph_idu(section,col){
                     console.log("enter login");
+                    
                     console.log($("input:checkbox[name=idubox]:checked").length);
                     var val = location.href.substr(
                     location.href.lastIndexOf('=') + 1);
@@ -733,10 +746,6 @@
                                 +"&section_count="+section
                                 +"&column_name="+col;
                     console.log(params);
-
-
-                
-
 						$.ajax({
 							type: 'post'
 							, url: 'http://localhost:3000/api/graph_idu'
@@ -744,14 +753,46 @@
 							, beforeSend: function() {
 								$('#ajax_load_indicator').show().fadeIn('fast'); 
 							}
-							, success: function(data) {
+							, success: function(data1) {
                                 console.log("일단 통신은 성공");
+                                console.log(data1.content.model);
+                                var datazz = data1.content.model;
+                                
 								if($("input:checkbox:checked").length >8){
                                     $('input[id='+col+']').prop('checked', false);
                                     alert("최대 8개까지 가능합니다.");
                                 }
                                 else{
+                                    if(!($('input[id='+col+']').is(':checked'))){
+                                        var remove=indexName.indexOf(col);
+                                        console.log("삭제");
+                                        console.log(remove);
+                                        for(var i=0;i<datazz.length;i++){
+                                            array[i].splice(remove,1);
+                                        }
+                                        indexName.splice(remove,1);
+                                        index-=1;
+                                        console.log(array)
+                                    }
+                                    else{
 
+
+                                    var dateRow=[];
+                                    var valRow=[];
+                                    index+=1;
+                                    var zero=0;
+                                    
+                                    indexName.push(col);
+                                    console.log(indexName);
+                                    
+                                    for(var i =0; i<datazz.length;i++){
+                                        console.log(array[i]);
+                                        array[i][0]=((new Date(datazz[i].TXT_TIME)));
+                                        array[i][index]=(datazz[i].value);
+                                        }
+                                    }
+                                    drawingZZ(array,indexName,datazz.length);
+           
                                 }
 							}
 							, error: function(data, status, err) {
@@ -780,14 +821,46 @@
 							, beforeSend: function() {
 								$('#ajax_load_indicator').show().fadeIn('fast'); 
 							}
-							, success: function(data) {
+							, success: function(data1) {
                                 console.log("일단 통신은 성공");
+                                console.log(data1.content);
+                                var datazz = data1.content;
+                                
 								if($("input:checkbox:checked").length >8){
                                     $('input[id='+col+']').prop('checked', false);
                                     alert("최대 8개까지 가능합니다.");
                                 }
                                 else{
+                                    if(!($('input[id='+col+']').is(':checked'))){
+                                        var remove=indexName.indexOf(col);
+                                        console.log("삭제");
+                                        console.log(remove);
+                                        for(var i=0;i<datazz.length;i++){
+                                            array[i].splice(remove,1);
+                                        }
+                                        indexName.splice(remove,1);
+                                        index-=1;
+                                        console.log(array)
+                                    }
+                                    else{
 
+
+                                    var dateRow=[];
+                                    var valRow=[];
+                                    index+=1;
+                                    var zero=0;
+                                    
+                                    indexName.push(col);
+                                    console.log(indexName);
+                                    
+                                    for(var i =0; i<datazz.length;i++){
+                                        console.log(array[i]);
+                                        array[i][0]=((new Date(datazz[i].TXT_TIME)));
+                                        array[i][index]=(datazz[i].value);
+                                        }
+                                    }
+                                    drawingZZ(array,indexName,datazz.length);
+           
                                 }
 							}
 							, error: function(data, status, err) {
@@ -859,6 +932,7 @@
                                     alert("최대 8개까지 가능합니다.");
                                 }
                                 else{
+                                    
 
                                 }
 							}
@@ -1086,6 +1160,121 @@
 								$('#ajax_load_indicator').fadeOut();
 							}
 						});
+                }
+
+                function drawingZZ(array,indexName,arraylength){
+                    var chartDrowFun = {
+
+                        chartDrow : function(){
+                            var chartData = '';
+
+                            //날짜형식 변경하고 싶으시면 이 부분 수정하세요.
+                            var chartDateformat     = 'HH:mm:ss';
+                            //라인차트의 라인 수
+                            var chartLineCount    = 10;
+                            //컨트롤러 바 차트의 라인 수
+                            var controlLineCount    = 10;
+
+
+                            function drawDashboard() {
+
+                            var data = new google.visualization.DataTable();
+                            //그래프에 표시할 컬럼 추가
+
+                            data.addColumn('date',indexName[0]);
+                            for(var i=1;i<indexName.length;i++){
+                                data.addColumn('number',indexName[i]);
+                            }
+                            // data.addColumn('date' , '날짜');
+                            // data.addColumn('number'   , '전체');
+
+                            //그래프에 표시할 데이터
+                            var dataRow = [];
+                            
+
+                            for(var i = 0; i < arraylength; i++){ //데이터 삽입
+                                // var total   = datazz[i].value;
+                                // var datezz = datazz[i].TXT_TIME;
+                                // console.log(datezz);
+                                // dataRow = [new Date(datezz),total];
+                                
+                                data.addRow(array[i]);
+                            }
+
+
+                                var chart = new google.visualization.ChartWrapper({
+                                chartType   : 'LineChart',
+                                containerId : 'lineChartArea', //라인 차트 생성할 영역
+                                options     : {
+                                                isStacked   : 'percent',
+                                                focusTarget : 'category',
+                                                height          : 500,
+                                                width              : '100%',
+                                                legend          : { position: "top", textStyle: {fontSize: 13}},
+                                                pointSize        : 5,
+                                                tooltip          : {textStyle : {fontSize:12}, showColorCode : true,trigger: 'both'},
+                                                hAxis              : {format: chartDateformat, gridlines:{count:chartLineCount,units: {
+                                                                                    hours : {format: ['HH시']},
+                                                                                    minutes: {format: ['mm분']},
+                                                                                    seconds  : {format: ['ss초']},
+                                                                                        }
+                                                                                    },textStyle: {fontSize:12}},
+                                    vAxis              : {minValue: 100,viewWindow:{min:0},gridlines:{count:-1},textStyle:{fontSize:12}},
+                                    animation        : {startup: true,duration: 1000,easing: 'in' },
+                                    annotations    : {pattern: chartDateformat,
+                                                    textStyle: {
+                                                    fontSize: 15,
+                                                    bold: true,
+                                                    italic: true,
+                                                    color: '#871b47',
+                                                    auraColor: '#d799ae',
+                                                    opacity: 0.8,
+                                                    pattern: chartDateformat
+                                                }
+                                                }
+                                }
+                                });
+
+                                var control = new google.visualization.ControlWrapper({
+                                controlType: 'ChartRangeFilter',
+                                containerId: 'controlsArea',  //control bar를 생성할 영역
+                                options: {
+                                    ui:{
+                                            chartType: 'LineChart',
+                                            chartOptions: {
+                                            chartArea: {'width': '60%','height' : 80},
+                                            hAxis: {'baselineColor': 'none', format: chartDateformat, textStyle: {fontSize:12},
+                                                gridlines:{count:controlLineCount,units: {
+                                                    hours: {format: ['HH시']},
+                                                    minutes: {format: ['mm분']},
+                                                    seconds  : {format: ['ss초']},
+                                                    }
+                                                }}
+                                            }
+                                    },
+                                        filterColumnIndex: 0
+                                    }
+                                });
+
+                                var date_formatter = new google.visualization.DateFormat({ pattern: chartDateformat});
+                                date_formatter.format(data, 0);
+
+                                var dashboard = new google.visualization.Dashboard(document.getElementById('Line_Controls_Chart'));
+                                window.addEventListener('resize', function() { dashboard.draw(data); }, false); //화면 크기에 따라 그래프 크기 변경
+                                dashboard.bind([control], [chart]);
+                                dashboard.draw(data);
+
+                            }
+                            google.charts.setOnLoadCallback(drawDashboard);
+
+                        }
+                        }
+
+                        // $(document).ready(function(){
+                        google.charts.load('current', {'packages':['line','controls']});
+                        chartDrowFun.chartDrow(); //chartDrow() 실행
+                        //  });
+
                 }
                         
 
