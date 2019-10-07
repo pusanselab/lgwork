@@ -28,360 +28,403 @@
         </a>
     </div>
 </nav>
-<div class="row">
-    <div class="container">
-        <div class="card" style="margin: 20px">
-            <div class="card-header">
-                ID 검색
-            </div>
-            <div class="input-group mb-3">
-                <input id="id_search" name="id_search" type="text" class="form-control" style="margin: 10px"
-                       placeholder="ID 입력"
-                       aria-label="Username" aria-describedby="basic-addon1">
-                <button onclick="idSearch()" type="button" class="btn btn-success" style="margin: 10px">검색</button>
-            </div>
-        </div>
 
-    </div>
-    <div class="container">
-        <div class="card" style="margin: 20px" name="test2">
-            <form id="data_search" method="post" action="" onSubmit="dataSearch();return false;">
-                <div class="card-header">
-                    데이터 검색(필수)
-                </div>
-                <div class="row" style="margin: 20px;">
-                    분류 :
-                    <select style="margin-left: 10px" name="lgmv_model_filter1">
-                        <option value="Multi V H/P" selected="selected">Multi V H/P</option>
-                        <option value="Multi V 5">Multi V 5</option>
-                        <option value="Multi V H/R">Multi V H/R</option>
-                        <option value="Multi V ARUM">Multi V ARUM</option>
-                        <option value="Multi Water">Multi Water</option>
-                        <option value="Multi V S">Multi V S</option>
-                        <option value="Multi V M">Multi V M</option>
-                        <option value="Multi V Space">Multi V Space</option>
-                        <option value="GHP">GHP</option>
-                        <option value="Chiller">Chiller</option>
-                        <option value="Single&Multi">Single&Multi</option>
-                        <option value="Refrigeration">Refrigeration</option>
-                    </select>
-                </div>
-                <div class="row" style="margin: 20px;">
-                    Model 군 :
-                    <select name="lgmv_model_filter2">
-
-                        <option value="Multi V 5 HR" selected="selected">Multi V 5 HR</option>
-                        <option value="Multi V 5 A">Multi V 5 A</option>
-                        <option value="Multi V 5 H">Multi V 5 H</option>
-                        <option value="Multi V IV">Multi V IV</option>
-                        <option value="Multi V IV Plus">Multi V IV Plus</option>
-                        <option value="Multi V lll">Multi V lll</option>
-                        <option value="Multi V II m+m">Multi V II m+m</option>
-                        <option value="Multi V II m+s">Multi V II m+s</option>
-                        <option value="Multi V 5 HR">Multi V 5 HR</option>
-                        <option value="Multi V IV HR">Multi V IV HR</option>
-                        <option value="Multi V III HR">Multi V III HR</option>
-                        <option value="Multi V 5">Multi V 5</option>
-                        <option value="Multi V 5HR">Multi V 5HR</option>
-                        <option value="Water IV A">Water IV A</option>
-                        <option value="Water IV">Water IV</option>
-                        <option value="Water IV HR">Water IV HR</option>
-                        <option value="Water S (Mini)">Water S (Mini)</option>
-                        <option value="Water II">Water II</option>
-                        <option value="Water II HR">Water II HR</option>
-                        <option value="Residence">Residence</option>
-                        <option value="Multi V S">Multi V S</option>
-                        <option value="Multi V S HR">Multi V S HR</option>
-                        <option value="Mini">Mini</option>
-                        <option value="Multi V M">Multi V M</option>
-                        <option value="N. A. Space">N. A. Space</option>
-                        <option value="Space III">Space III</option>
-                        <option value="Space III 3P">Space III 3P</option>
-                        <option value="GHP Super III">GHP Super III</option>
-                        <option value="GHP Super& II">SGHP Super& II</option>
-                        <option value="Turbo Chiller">Turbo Chiller</option>
-                        <option value="ABS Chiller">ABS Chiller</option>
-                        <option value="Screw Chiller">Screw Chiller</option>
-                        <option value="ISC Water">ISC Water</option>
-                        <option value="ISC Super">ISC Super</option>
-                        <option value="ISC Shell&Tube">ISC Shell&Tube</option>
-                        <option value="ISC">ISC</option>
-                        <option value="ISC Super II">ISC Super II</option>
-                        <option value="Split&Monobloc">Split&Monobloc</option>
-                        <option value="SystemBoiler 2nd">SystemBoiler 2nd</option>
-                        <option value="Single Package II">Single Package II</option>
-                        <option value="Single Package">Single Package</option>
-                        <option value="Pressure">Pressure</option>
-                        <option value="Temp">Temp</option>
-                        <option value="Super Combi">Super Combi</option>
-                        <option value="Slim Combi">Slim Combi</option>
-                        <option value="Combi">Combi</option>
-                        <option value="Condensing Unit">Condensing Unit</option>
-                        <option value="Super CDU">Super CDU</option>
-
-                    </select>
-                </div>
-
-        </div>
-    </div>
-</div>
-<div class="card" style="margin: 20px">
-    <div class="card-header">
-        데이터 상세검색
-    </div>
-    <div class="container" style="display: flex">
-        <div class="row">
-			<div class="col-md-3">
-                <div class="form-inline">
-                    <input type="text" class="form-control" style="margin:10px" name="lgmv_model_name" maxlength="10"
-                           placeholder="Model 명">
-                </div>
-                <div class="form-inline">
-                    <input type="text" class="form-control" style="margin:10px" name="lgmv_serial_number" maxlength="10"
-                           placeholder="Serial 명">
-                </div>
-                <div class="form-inline">
-                    <input type="text" class="form-control" style="margin:10px" name="lgmv_r" maxlength="10"
-                           placeholder="냉매">
-                </div>
-                <div class="form-inline">
-                    <input type="text" class="form-control" style="margin:10px" name="lgmv_main_ver" placeholder="main S/W">
-                </div>
-                <div class="form-inline">
-                    <input type="text" class="form-control" style="margin:10px" name="lgmv_eep_ver" placeholder="EEPROM S/W">
-                </div>
-                <div class="form-inline">
-                    <input type="text" class="form-control" style="margin:10px" name="calorimeter_cap" placeholder="용량">
-                </div>
-                <div class="form-inline">
-                    <input type="text" class="form-control" style="margin:10px" name="calorimeter_power" placeholder="전원">
-                </div>
-                <div class="form-inline">
-                    <input type="text" class="form-control" style="margin:10px" name="calorimeter_eer" placeholder="효율">
-                </div>
-                <div class="form-inline">
-                    <input type="text" class="form-control" style="margin:10px" name="calorimeter_power_vol"
-                           placeholder="전압">
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="form-inline">
-                    <input type="text" class="form-control" style="margin:10px" name="calorimeter_id_wb" placeholder="ID 습구온도">
-                </div>
-                <div class="form-inline">
-                    <input type="text" class="form-control" style="margin:10px" name="calorimeter_id_db" placeholder="ID 건구온도">
-                </div>
-                <div class="form-inline">
-                    <input type="text" class="form-control" style="margin:10px" name="calorimeter_od_wb" placeholder="OD 습구온도">
-                </div>
-                <div class="form-inline">
-                    <input type="text" class="form-control" style="margin:10px" name="calorimeter_od_db" placeholder="OD 건구온도">
-                </div>
-                <div class="form-inline">
-                    <input type="text" class="form-control" style="margin:10px" name="conn_file_date" placeholder="파일생성날짜">
-                </div>
-                <div class="form-inline">
-                    <input type="text" class="form-control" style="margin:10px" name="idu_chassis" placeholder="IDU 샤시">
-                </div>
-                <div class="form-inline">
-                    <input type="text" class="form-control" style="margin:10px" name="odu_chassis" placeholder="ODU 샤시">
-                </div>
-                <div class="form-inline">
-                    <input type="text" class="form-control" style="margin:10px" name="plm_step1" placeholder="개발프로세스(상)">
-                </div>
-                <div class="form-inline">
-                    <input type="text" class="form-control" style="margin:10px" name="plm_step2" placeholder="개발프로세스(하)">
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="form-inline">
-                    <input type="text" class="form-control" style="margin:10px" name="test_step1" placeholder="구분">
-                </div>
-                <div class="form-inline">
-                    <input type="text" class="form-control" style="margin:10px" name="test_step2" placeholder="시험항목">
-                </div>
-                <div class="form-inline">
-                    <input type="text" class="form-control" style="margin:10px" name="conn_tester" placeholder="실험자">
-                </div>
-                <div class="form-inline">
-                    <input type="text" class="form-control" style="margin:10px" name="conn_testroom_number" placeholder="챔버번호">
-                </div>
-                <div class="form-inline">
-                    <input type="text" class="form-control" style="margin:10px" name="conn_pipe_type" placeholder="배관정보">
-                </div>
-                <div class="form-inline">
-                    <input type="text" class="form-control" style="margin:10px" name="conn_test_result" placeholder="TEST 결과">
-                </div>
-                <div class="form-inline">
-                    <input type="text" class="form-control" style="margin:10px" name="conn_memo" placeholder="설명">
-                </div>
-                <div>날짜입력<input type="text" ID="datepicker" class="input-append date"/> ~ <input type="text"
-                                                                                                    id="datepicker"
-                                                                                                    class="input-append date"/>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-
-</div>
-<input type="submit" value="검색" onclick="dataSearch();">
-
-
-<!-- Main -->
-<div id="main" class="wrapper style1" style="margin: 30px">
-
-    <br/>
-
-
-    <div id="search_fail" style="display: none">
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    <div class="sidebar" style="width: 250px" id="my_sidebar">
+        <button onclick="closeNav()" id="my-sidebar-close-btn">검색 메뉴 닫기</button>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
     </div>
 
-    <div id="search_result" style="display: none" class="table-responsive">
-        <table id="search_table" class="table table-striped table-bordered table-hover table-condensed">
-            <tbody id="search_tbody">
-            <tr>
-                <td>ID</td>
-                <td>Model</td>
-                <td>모델명</td>
-                <td>용량</td>
-                <td>샤시</td>
-                <td>냉매 종류</td>
-                <td>구분</td>
-                <td>시험항목</td>
-                <!--<td>시험 종류</td>-->
-                <!-- <td>시험 상세</td>-->
-                <td>시험 날짜</td>
-                <td>실험자</td>
-                <td>챔버 번호</td>
-                <td>그래프</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+    <!-- /#sidebar-wrapper -->
 
-    <div>
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <button onclick="openNav()" id="my-sidebar-open-btn" style="visibility: hidden;">검색 메뉴 열기</button>
 
-        <div id="detail" class="container show-grid" style="display:none">
-
-            <h2>Summary</h2>
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-md-4">
-
-                    <h3>제품 정보</h3>
-                    <label class="form-inline">-Model 명</label>
-                    <p class="form-inline" id="_lgmv_model_name"></p>
-                    -serial 명 <p id="_lgmv_serial_number"></p>
-                    -분류 <h3 style="white-space: nowrap;" id="_lgmv_model_filter1"></h3>
-                    -Model 군 <p style="white-space: nowrap;" id="_lgmv_model_filter2"></p>
-                    -냉매 <p id="_lgmv_r"></p>
-                    -main S/W <p id="_lgmv_main_ver"></p>
-                    -EERPROM S/W <p id="_lgmv_eep_ver"></p>
-                    -용량 <p id="_calorimeter_cap"></p>
-                    -전원 <p id="_calorimeter_power"></p>
-                    -효율 <p id="_calorimeter_eer"></p>
-                    -전원 <p id="_calorimeter_power_vol"></p>
-                    -ID 습구온도 <p id="_calorimeter_id_wb"></p>
-                    -ID 건구온도 <p id="_calorimeter_id_db"></p>
-                    -OD 습구온도 <p id="_calorimeter_od_wb"></p>
-                    -OD 건구온도 <p id="_calorimeter_od_db"></p>
-                    -파일생성날짜 <p id="_conn_file_date"></p>
-                    -파일생성시간 <p id="_conn_file_time"></p>
-
+                <div class="container">
+                    <div class="card" style="margin: 20px">
+                        <div class="card-header">
+                            ID 검색
+                        </div>
+                        <div class="input-group mb-3">
+                            <input id="id_search" name="id_search" type="text" class="form-control" style="margin: 10px"
+                                   placeholder="ID 입력"
+                                   aria-label="Username" aria-describedby="basic-addon1">
+                            <button onclick="idSearch()" type="button" class="btn btn-success" style="margin: 10px">검색
+                            </button>
+                        </div>
+                    </div>
 
                 </div>
-                <div class="col-md-4">
-                    <h3>시험 정보</h3>
-                    -실내기 샤시 <p id="_idu_chassis"></p>
-                    -실외기 샤시 <p id="_odu_chassis"></p>
-                    -개발 프로세스(상) <p id="_plm_step1"></p>
-                    -개발 프로세스(하) <p id="_plm_step2"></p>
-                    -구분 <p id="_test_step1"></p>
-                    -시험항목 <p id="_test_step2"></p>
-                    -실험자 <p id="_conn_tester"></p>
-                    -챔버 번호 <p id="_conn_testroom_number"></p>
-                    -배관정보 <p id="_conn_pipe_type"></p>
-                    -test 결과 <p id="_conn_test_result"></p>
-                    -설명 <p id="_conn_memo"></p>
-                    -ODU 연결수 <p id="_lgmv_odu_count"></p>
-                    -IDU 연결수 <p id="_lgmv_idu_count"></p>
-                    -HRU 연결수 <p id="_lgmv_hru_count"></p>
-                    -CAL 연결수 <p id="_calorimeter_count"></p>
-                    -DXC 연결수 <p id="_lgmv_sidu_dxc_count"></p>
+                <div class="container">
+                    <div class="card" style="margin: 20px" name="test2">
+                        <form id="data_search" method="post" action="" onSubmit="dataSearch();return false;">
+                            <div class="card-header">
+                                데이터 검색(필수)
+                            </div>
+                            <div class="row" style="margin: 20px;">
+                                분류 :
+                                <select style="margin-left: 10px" name="lgmv_model_filter1">
+                                    <option value="Multi V H/P" selected="selected">Multi V H/P</option>
+                                    <option value="Multi V 5">Multi V 5</option>
+                                    <option value="Multi V H/R">Multi V H/R</option>
+                                    <option value="Multi V ARUM">Multi V ARUM</option>
+                                    <option value="Multi Water">Multi Water</option>
+                                    <option value="Multi V S">Multi V S</option>
+                                    <option value="Multi V M">Multi V M</option>
+                                    <option value="Multi V Space">Multi V Space</option>
+                                    <option value="GHP">GHP</option>
+                                    <option value="Chiller">Chiller</option>
+                                    <option value="Single&Multi">Single&Multi</option>
+                                    <option value="Refrigeration">Refrigeration</option>
+                                </select>
+                            </div>
+                            <div class="row" style="margin: 20px;">
+                                Model 군 :
+                                <select name="lgmv_model_filter2">
 
+                                    <option value="Multi V 5 HR" selected="selected">Multi V 5 HR</option>
+                                    <option value="Multi V 5 A">Multi V 5 A</option>
+                                    <option value="Multi V 5 H">Multi V 5 H</option>
+                                    <option value="Multi V IV">Multi V IV</option>
+                                    <option value="Multi V IV Plus">Multi V IV Plus</option>
+                                    <option value="Multi V lll">Multi V lll</option>
+                                    <option value="Multi V II m+m">Multi V II m+m</option>
+                                    <option value="Multi V II m+s">Multi V II m+s</option>
+                                    <option value="Multi V 5 HR">Multi V 5 HR</option>
+                                    <option value="Multi V IV HR">Multi V IV HR</option>
+                                    <option value="Multi V III HR">Multi V III HR</option>
+                                    <option value="Multi V 5">Multi V 5</option>
+                                    <option value="Multi V 5HR">Multi V 5HR</option>
+                                    <option value="Water IV A">Water IV A</option>
+                                    <option value="Water IV">Water IV</option>
+                                    <option value="Water IV HR">Water IV HR</option>
+                                    <option value="Water S (Mini)">Water S (Mini)</option>
+                                    <option value="Water II">Water II</option>
+                                    <option value="Water II HR">Water II HR</option>
+                                    <option value="Residence">Residence</option>
+                                    <option value="Multi V S">Multi V S</option>
+                                    <option value="Multi V S HR">Multi V S HR</option>
+                                    <option value="Mini">Mini</option>
+                                    <option value="Multi V M">Multi V M</option>
+                                    <option value="N. A. Space">N. A. Space</option>
+                                    <option value="Space III">Space III</option>
+                                    <option value="Space III 3P">Space III 3P</option>
+                                    <option value="GHP Super III">GHP Super III</option>
+                                    <option value="GHP Super& II">SGHP Super& II</option>
+                                    <option value="Turbo Chiller">Turbo Chiller</option>
+                                    <option value="ABS Chiller">ABS Chiller</option>
+                                    <option value="Screw Chiller">Screw Chiller</option>
+                                    <option value="ISC Water">ISC Water</option>
+                                    <option value="ISC Super">ISC Super</option>
+                                    <option value="ISC Shell&Tube">ISC Shell&Tube</option>
+                                    <option value="ISC">ISC</option>
+                                    <option value="ISC Super II">ISC Super II</option>
+                                    <option value="Split&Monobloc">Split&Monobloc</option>
+                                    <option value="SystemBoiler 2nd">SystemBoiler 2nd</option>
+                                    <option value="Single Package II">Single Package II</option>
+                                    <option value="Single Package">Single Package</option>
+                                    <option value="Pressure">Pressure</option>
+                                    <option value="Temp">Temp</option>
+                                    <option value="Super Combi">Super Combi</option>
+                                    <option value="Slim Combi">Slim Combi</option>
+                                    <option value="Combi">Combi</option>
+                                    <option value="Condensing Unit">Condensing Unit</option>
+                                    <option value="Super CDU">Super CDU</option>
+
+                                </select>
+                            </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="card" style="margin: 20px">
+                <div class="card-header">
+                    데이터 상세검색
+                </div>
+                <div class="container" style="display: flex">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-inline">
+                                <input type="text" class="form-control" style="margin:10px" name="lgmv_model_name"
+                                       maxlength="10"
+                                       placeholder="Model 명">
+                            </div>
+                            <div class="form-inline">
+                                <input type="text" class="form-control" style="margin:10px" name="lgmv_serial_number"
+                                       maxlength="10"
+                                       placeholder="Serial 명">
+                            </div>
+                            <div class="form-inline">
+                                <input type="text" class="form-control" style="margin:10px" name="lgmv_r" maxlength="10"
+                                       placeholder="냉매">
+                            </div>
+                            <div class="form-inline">
+                                <input type="text" class="form-control" style="margin:10px" name="lgmv_main_ver"
+                                       placeholder="main S/W">
+                            </div>
+                            <div class="form-inline">
+                                <input type="text" class="form-control" style="margin:10px" name="lgmv_eep_ver"
+                                       placeholder="EEPROM S/W">
+                            </div>
+                            <div class="form-inline">
+                                <input type="text" class="form-control" style="margin:10px" name="calorimeter_cap"
+                                       placeholder="용량">
+                            </div>
+                            <div class="form-inline">
+                                <input type="text" class="form-control" style="margin:10px" name="calorimeter_power"
+                                       placeholder="전원">
+                            </div>
+                            <div class="form-inline">
+                                <input type="text" class="form-control" style="margin:10px" name="calorimeter_eer"
+                                       placeholder="효율">
+                            </div>
+                            <div class="form-inline">
+                                <input type="text" class="form-control" style="margin:10px" name="calorimeter_power_vol"
+                                       placeholder="전압">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-inline">
+                                <input type="text" class="form-control" style="margin:10px" name="calorimeter_id_wb"
+                                       placeholder="ID 습구온도">
+                            </div>
+                            <div class="form-inline">
+                                <input type="text" class="form-control" style="margin:10px" name="calorimeter_id_db"
+                                       placeholder="ID 건구온도">
+                            </div>
+                            <div class="form-inline">
+                                <input type="text" class="form-control" style="margin:10px" name="calorimeter_od_wb"
+                                       placeholder="OD 습구온도">
+                            </div>
+                            <div class="form-inline">
+                                <input type="text" class="form-control" style="margin:10px" name="calorimeter_od_db"
+                                       placeholder="OD 건구온도">
+                            </div>
+                            <div class="form-inline">
+                                <input type="text" class="form-control" style="margin:10px" name="conn_file_date"
+                                       placeholder="파일생성날짜">
+                            </div>
+                            <div class="form-inline">
+                                <input type="text" class="form-control" style="margin:10px" name="idu_chassis"
+                                       placeholder="IDU 샤시">
+                            </div>
+                            <div class="form-inline">
+                                <input type="text" class="form-control" style="margin:10px" name="odu_chassis"
+                                       placeholder="ODU 샤시">
+                            </div>
+                            <div class="form-inline">
+                                <input type="text" class="form-control" style="margin:10px" name="plm_step1"
+                                       placeholder="개발프로세스(상)">
+                            </div>
+                            <div class="form-inline">
+                                <input type="text" class="form-control" style="margin:10px" name="plm_step2"
+                                       placeholder="개발프로세스(하)">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-inline">
+                                <input type="text" class="form-control" style="margin:10px" name="test_step1"
+                                       placeholder="구분">
+                            </div>
+                            <div class="form-inline">
+                                <input type="text" class="form-control" style="margin:10px" name="test_step2"
+                                       placeholder="시험항목">
+                            </div>
+                            <div class="form-inline">
+                                <input type="text" class="form-control" style="margin:10px" name="conn_tester"
+                                       placeholder="실험자">
+                            </div>
+                            <div class="form-inline">
+                                <input type="text" class="form-control" style="margin:10px" name="conn_testroom_number"
+                                       placeholder="챔버번호">
+                            </div>
+                            <div class="form-inline">
+                                <input type="text" class="form-control" style="margin:10px" name="conn_pipe_type"
+                                       placeholder="배관정보">
+                            </div>
+                            <div class="form-inline">
+                                <input type="text" class="form-control" style="margin:10px" name="conn_test_result"
+                                       placeholder="TEST 결과">
+                            </div>
+                            <div class="form-inline">
+                                <input type="text" class="form-control" style="margin:10px" name="conn_memo"
+                                       placeholder="설명">
+                            </div>
+                            <div>날짜입력<input type="text" ID="datepicker" class="input-append date"/> ~ <input type="text"
+                                                                                                             id="datepicker"
+                                                                                                             class="input-append date"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </form>
+
+            </div>
+            <input type="submit" value="검색" onclick="dataSearch();">
+
+
+            <!-- Main -->
+            <div id="main" class="wrapper style1" style="margin: 30px">
+
+                <br/>
+
+
+                <div id="search_fail" style="display: none">
+                </div>
+
+                <div id="search_result" style="display: none" class="table-responsive">
+                    <table id="search_table" class="table table-striped table-bordered table-hover table-condensed">
+                        <tbody id="search_tbody">
+                        <tr>
+                            <td>ID</td>
+                            <td>Model</td>
+                            <td>모델명</td>
+                            <td>용량</td>
+                            <td>샤시</td>
+                            <td>냉매 종류</td>
+                            <td>구분</td>
+                            <td>시험항목</td>
+                            <!--<td>시험 종류</td>-->
+                            <!-- <td>시험 상세</td>-->
+                            <td>시험 날짜</td>
+                            <td>실험자</td>
+                            <td>챔버 번호</td>
+                            <td>그래프</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div>
+
+                    <div id="detail" class="container show-grid" style="display:none">
+
+                        <h2>Summary</h2>
+                        <div class="row">
+                            <div class="col-md-4">
+
+                                <h3>제품 정보</h3>
+                                <label class="form-inline">-Model 명</label>
+                                <p class="form-inline" id="_lgmv_model_name"></p>
+                                -serial 명 <p id="_lgmv_serial_number"></p>
+                                -분류 <h3 style="white-space: nowrap;" id="_lgmv_model_filter1"></h3>
+                                -Model 군 <p style="white-space: nowrap;" id="_lgmv_model_filter2"></p>
+                                -냉매 <p id="_lgmv_r"></p>
+                                -main S/W <p id="_lgmv_main_ver"></p>
+                                -EERPROM S/W <p id="_lgmv_eep_ver"></p>
+                                -용량 <p id="_calorimeter_cap"></p>
+                                -전원 <p id="_calorimeter_power"></p>
+                                -효율 <p id="_calorimeter_eer"></p>
+                                -전원 <p id="_calorimeter_power_vol"></p>
+                                -ID 습구온도 <p id="_calorimeter_id_wb"></p>
+                                -ID 건구온도 <p id="_calorimeter_id_db"></p>
+                                -OD 습구온도 <p id="_calorimeter_od_wb"></p>
+                                -OD 건구온도 <p id="_calorimeter_od_db"></p>
+                                -파일생성날짜 <p id="_conn_file_date"></p>
+                                -파일생성시간 <p id="_conn_file_time"></p>
+
+
+                            </div>
+                            <div class="col-md-4">
+                                <h3>시험 정보</h3>
+                                -실내기 샤시 <p id="_idu_chassis"></p>
+                                -실외기 샤시 <p id="_odu_chassis"></p>
+                                -개발 프로세스(상) <p id="_plm_step1"></p>
+                                -개발 프로세스(하) <p id="_plm_step2"></p>
+                                -구분 <p id="_test_step1"></p>
+                                -시험항목 <p id="_test_step2"></p>
+                                -실험자 <p id="_conn_tester"></p>
+                                -챔버 번호 <p id="_conn_testroom_number"></p>
+                                -배관정보 <p id="_conn_pipe_type"></p>
+                                -test 결과 <p id="_conn_test_result"></p>
+                                -설명 <p id="_conn_memo"></p>
+                                -ODU 연결수 <p id="_lgmv_odu_count"></p>
+                                -IDU 연결수 <p id="_lgmv_idu_count"></p>
+                                -HRU 연결수 <p id="_lgmv_hru_count"></p>
+                                -CAL 연결수 <p id="_calorimeter_count"></p>
+                                -DXC 연결수 <p id="_lgmv_sidu_dxc_count"></p>
+
+
+                            </div>
+                            <div class="col-md-4">
+                                <h3>시험 결과</h3>
+                                -AWHP 연결수 <p id="_lgmv_sidu_awhp_count"></p>
+                                -SHOWCASE 연결수 <p id="_lgmv_sidu_showcase_count"></p>
+                                -FAU 연결수 <p id="_lgmv_sidu_fau_count"></p>
+                                -WHU 연결수 <p id="_lgmv_sidu_whu_count"></p>
+                                -CASCADE 연결수 <p id="_lgmv_sidu_cascade_count"></p>
+                                -온도단위 <p id="_lgmv_unit_temp"></p>
+                                -압력단위 <p id="_lgmv_unit_press"></p>
+                                -유량단위 <p id="_lgmv_unit_flux"></p>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div id="_cold" style="display:none" class="table-responsive">
+                        <h2>냉방 성능 최대 효율</h2>
+                        <table id="cold_table" class="table table-striped table-bordered table-hover">
+                            <tbody id="cold_tbody">
+                            <tr>
+                                <td>ID</td>
+                                <td>압축기#1</td>
+                                <td>압축기#2</td>
+                                <td>ODU Fan RPM1</td>
+                                <td>ODU Fan RPM2</td>
+                                <td>IDU Fan RPM1</td>
+                                <td>Main EEV</td>
+                                <td>Sub EEV</td>
+                                <!--<td>시험 종류</td>-->
+                                <!-- <td>시험 상세</td>-->
+                                <td>운전률</td>
+                                <td>효율</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <div id="_same" style="display:none" class="table-responsive">
+
+                        <h2>유사시험</h2>
+                        <table id="same_table" class="table table-striped">
+                            <tbody id="same_tbody">
+                            <tr>
+                                <td>ID</td>
+                                <td>Model</td>
+                                <td>모델명</td>
+                                <td>용량</td>
+                                <td>샤시</td>
+                                <td>냉매 종류</td>
+                                <td>구분</td>
+                                <td>시험항목</td>
+                                <!--<td>시험 종류</td>-->
+                                <!-- <td>시험 상세</td>-->
+                                <td>시험 날짜</td>
+                                <td>실험자</td>
+                                <td>챔버 번호</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
 
                 </div>
-                <div class="col-md-4">
-                    <h3>시험 결과</h3>
-                    -AWHP 연결수 <p id="_lgmv_sidu_awhp_count"></p>
-                    -SHOWCASE 연결수 <p id="_lgmv_sidu_showcase_count"></p>
-                    -FAU 연결수 <p id="_lgmv_sidu_fau_count"></p>
-                    -WHU 연결수 <p id="_lgmv_sidu_whu_count"></p>
-                    -CASCADE 연결수 <p id="_lgmv_sidu_cascade_count"></p>
-                    -온도단위 <p id="_lgmv_unit_temp"></p>
-                    -압력단위 <p id="_lgmv_unit_press"></p>
-                    -유량단위 <p id="_lgmv_unit_flux"></p>
 
-
-                </div>
             </div>
 
         </div>
-
-        <div id="_cold" style="display:none" class="table-responsive">
-			<h2>냉방 성능 최대 효율</h2>
-            <table id="cold_table" class="table table-striped table-bordered table-hover">
-                <tbody id="cold_tbody">
-                <tr>
-                    <td>ID</td>
-                    <td>압축기#1</td>
-                    <td>압축기#2</td>
-                    <td>ODU Fan RPM1</td>
-                    <td>ODU Fan RPM2</td>
-                    <td>IDU Fan RPM1</td>
-                    <td>Main EEV</td>
-                    <td>Sub EEV</td>
-                    <!--<td>시험 종류</td>-->
-                    <!-- <td>시험 상세</td>-->
-                    <td>운전률</td>
-                    <td>효율</td>
-                </tr>
-                </tbody>
-            </table>
-
-        </div>
-
-        <div id="_same" style="display:none" class="table-responsive">
-
-            <h2>유사시험</h2>
-            <table id="same_table" class="table table-striped">
-                <tbody id="same_tbody">
-                <tr>
-                    <td>ID</td>
-                    <td>Model</td>
-                    <td>모델명</td>
-                    <td>용량</td>
-                    <td>샤시</td>
-                    <td>냉매 종류</td>
-                    <td>구분</td>
-                    <td>시험항목</td>
-                    <!--<td>시험 종류</td>-->
-                    <!-- <td>시험 상세</td>-->
-                    <td>시험 날짜</td>
-                    <td>실험자</td>
-                    <td>챔버 번호</td>
-                </tr>
-                </tbody>
-            </table>
-
-        </div>
-
     </div>
-
-</div>
-
+    <!-- /#page-content-wrapper -->
 
 </div>
 
@@ -920,6 +963,32 @@
         window.location.href = "graph.html?index=" + index;
     }
 </script>
+<script type="text/javascript">
+    function openNav() {
+        document.getElementById("my_sidebar").style.width = "250px";
+        document.getElementById("my-sidebar-open-btn").style.visibility="hidden";
+        document.getElementById("my-sidebar-close-btn").style.visibility="visible";
 
+    }
+    function closeNav() {
+        document.getElementById("my_sidebar").style.width = "0";
+        document.getElementById("my-sidebar-open-btn").style.visibility="visible";
+        document.getElementById("my-sidebar-close-btn").style.visibility="hidden";
+    }
+</script>
 </body>
+<style>
+
+    .sidebar {
+        height: 100%;
+        width: 0;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #9fcdff;
+        overflow-x: hidden;
+        transition: 0.4s;
+        padding-top: 60px;
+    }
+</style>
 </html>
