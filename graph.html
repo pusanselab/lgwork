@@ -86,6 +86,14 @@
     <script data-require="d3@4.0.0" data-semver="4.0.0" src="https://d3js.org/d3.v4.min.js"></script>
     <script>
 
+
+              
+                var array;
+                var index=0;
+                var indexName;
+                var rowcount;
+                
+
             $(document).ready(function(){
                 var val = location.href.substr(
                 location.href.lastIndexOf('=') + 1);
@@ -110,6 +118,7 @@
                             var fau_count = element.lgmv_sidu_fau_count;
                             var whu_count = element.lgmv_sidu_whu_count;
                             var cascade_count = element.lgmv_sidu_cascade_count;
+                            rowcount =data.count;
                             
 
 
@@ -123,6 +132,15 @@
                             $("span").data("fau",fau_count);
                             $("span").data("whu",whu_count);
                             $("span").data("cascade",cascade_count);
+                            $("span").data("rowcount",rowcount);
+
+                            console.log(rowcount);
+
+                            array=new Array(rowcount+1);
+                            for(var i =0 ;i<rowcount+1;i++){
+                                array[i]=new Array();
+                            }
+                            indexName=['Date'];
 
 
 							
@@ -293,6 +311,34 @@
                 function showGraph(){
                    var rowData = new Array();
 
+
+                //    if(!($('input[id='+col+']').is(':checked'))){
+                //                         var remove=indexName.indexOf(col);
+                //                         console.log("삭제");
+                //                         console.log(remove);
+                //                         for(var i=0;i<datazz.length;i++){
+                //                             array[i].splice(remove,1);
+                //                         }
+                //                         indexName.splice(remove,1);
+                //                         index-=1;
+                //                         console.log(array)
+                //                     }
+
+                if($("input:checkbox:checked").length >0){
+                    console.log("이안");
+                //   $("input:checkbox:checked").prop('checked',false);
+                   for(var j=1;j<indexName.length;j++){
+                        for(var i=0;i<rowcount;i++){
+                            array[i].splice(j,1);
+                        }
+                   }
+                   console.log(array);
+                   index=1;
+                   indexName.splice(1);
+                   drawingZZ(array,indexName,rowcount);
+                }
+
+                   
                    var table_length= $('#detail_body tr').length;
                    var htmltest = "<div class='row'>";
 
@@ -727,14 +773,7 @@
 
 
                 }
-                var array=new Array(999);
-                for(var i =0 ;i<999;i++){
-                    array[i]=new Array();
-                }
-                
-                    var index=0;
-                    var indexName=['Date'];
-                
+
 
                 function graph_idu(section,col){
                     console.log("enter login");
@@ -745,7 +784,7 @@
                     var params="header_uid="+val
                                 +"&section_count="+section
                                 +"&column_name="+col;
-                    console.log(params);
+                    
 						$.ajax({
 							type: 'post'
 							, url: 'http://localhost:3000/api/graph_idu'
@@ -755,7 +794,7 @@
 							}
 							, success: function(data1) {
                                 console.log("일단 통신은 성공");
-                                console.log(data1.content.model);
+                               
                                 var datazz = data1.content.model;
                                 
 								if($("input:checkbox:checked").length >8){
@@ -765,33 +804,28 @@
                                 else{
                                     if(!($('input[id='+col+']').is(':checked'))){
                                         var remove=indexName.indexOf(col);
-                                        console.log("삭제");
-                                        console.log(remove);
+                                        
                                         for(var i=0;i<datazz.length;i++){
                                             array[i].splice(remove,1);
                                         }
                                         indexName.splice(remove,1);
                                         index-=1;
-                                        console.log(array)
+                                     
                                     }
                                     else{
 
-
-                                    var dateRow=[];
-                                    var valRow=[];
-                                    index+=1;
-                                    var zero=0;
-                                    
+                                    index+=1;     
+                                                                
                                     indexName.push(col);
-                                    console.log(indexName);
+                                   
                                     
                                     for(var i =0; i<datazz.length;i++){
-                                        console.log(array[i]);
+                                        
                                         array[i][0]=((new Date(datazz[i].TXT_TIME)));
                                         array[i][index]=(datazz[i].value);
                                         }
                                     }
-                                    drawingZZ(array,indexName,datazz.length);
+                                    drawingZZ(array,indexName,rowcount);
            
                                 }
 							}
@@ -812,7 +846,7 @@
                     var params="header_uid="+val
                                 +"&section_count="+section
                                 +"&column_name="+col;
-                    console.log(params);
+                 
 
 						$.ajax({
 							type: 'post'
@@ -822,8 +856,7 @@
 								$('#ajax_load_indicator').show().fadeIn('fast'); 
 							}
 							, success: function(data1) {
-                                console.log("일단 통신은 성공");
-                                console.log(data1.content);
+                                
                                 var datazz = data1.content;
                                 
 								if($("input:checkbox:checked").length >8){
@@ -833,14 +866,13 @@
                                 else{
                                     if(!($('input[id='+col+']').is(':checked'))){
                                         var remove=indexName.indexOf(col);
-                                        console.log("삭제");
-                                        console.log(remove);
+                        
                                         for(var i=0;i<datazz.length;i++){
                                             array[i].splice(remove,1);
                                         }
                                         indexName.splice(remove,1);
                                         index-=1;
-                                        console.log(array)
+                                        
                                     }
                                     else{
 
@@ -1179,17 +1211,23 @@
                             function drawDashboard() {
 
                             var data = new google.visualization.DataTable();
+                            var distinct=[];
                             //그래프에 표시할 컬럼 추가
 
                             data.addColumn('date',indexName[0]);
                             for(var i=1;i<indexName.length;i++){
                                 data.addColumn('number',indexName[i]);
+                                var split = indexName[i].split('_');
+                                distinct.push(split[split.length-1]);
+                           
                             }
                             // data.addColumn('date' , '날짜');
                             // data.addColumn('number'   , '전체');
 
                             //그래프에 표시할 데이터
                             var dataRow = [];
+                            var mindata;
+                            
                             
 
                             for(var i = 0; i < arraylength; i++){ //데이터 삽입
@@ -1199,6 +1237,7 @@
                                 // dataRow = [new Date(datezz),total];
                                 
                                 data.addRow(array[i]);
+                                mindata = Math.min(array[i]);
                             }
 
 
@@ -1206,6 +1245,7 @@
                                 chartType   : 'LineChart',
                                 containerId : 'lineChartArea', //라인 차트 생성할 영역
                                 options     : {
+                                               // chartArea : {right:136},
                                                 isStacked   : 'percent',
                                                 focusTarget : 'category',
                                                 height          : 500,
@@ -1219,7 +1259,16 @@
                                                                                     seconds  : {format: ['ss초']},
                                                                                         }
                                                                                     },textStyle: {fontSize:12}},
-                                    vAxis              : {minValue: 100,viewWindow:{min:0},gridlines:{count:-1},textStyle:{fontSize:12}},
+                                    
+                                    series:{
+                                        0:{targetAxisIndex:0},
+                                        1:{targetAxisIndex:1},
+                                        2:{targetAxisIndex:2},
+                                            },
+                                    vAxes              : {0:{minValue: 10,viewWindow:{min:mindata},gridlines:{count:-1},textStyle:{fontSize:12}},
+                                                          1:{label: '˚C',minValue: 10,viewWindow:{min:mindata},gridlines:{count:-1},textStyle:{fontSize:12},side:'left'},
+                                                          2:{title: 'kPa',minValue: 10,viewWindow:{min:mindata},gridlines:{count:-1},textStyle:{fontSize:12},position:'left'},
+                                                          },
                                     animation        : {startup: true,duration: 1000,easing: 'in' },
                                     annotations    : {pattern: chartDateformat,
                                                     textStyle: {
@@ -1231,7 +1280,8 @@
                                                     opacity: 0.8,
                                                     pattern: chartDateformat
                                                 }
-                                                }
+                                                },
+
                                 }
                                 });
 
