@@ -56,10 +56,78 @@
 </div>
 
 <div id="데이터 삭제" class="tabcontent">
-    <h3>데이터 삭제</h3>
+    <div class="card" style="margin: 50px">
+        <div class="card-header" style="background-color: #9fcdff">
+            날짜별 데이터 삭제
+        </div>
+        <div style="margin: 20px">
+            시작날짜
+            <input type="text" id="testDatepicker1">
+            ~
+            종료날짜
+            <input type="text" id="testDatepicker2">
+            <button type="button" class="btn btn-primary" data-toggle="modal" style="float: right" data-target="#dateModal">
+                삭제 하기
+            </button>
+        </div>
+    </div>
+
+    <div class="card" style="margin: 50px">
+        <div class="card-header" style="background-color: #28a745">
+            아이디별 데이터 삭제
+        </div>
+        <div style="margin: 20px">
+            <input type="text" id="header_id" placeholder=" ID 입력">
+            <button type="button" class="btn btn-success" data-toggle="modal" style="float: right" data-target="#idModal">
+                삭제 하기
+            </button>
+        </div>
+    </div>
+</div>
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="dateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">주의</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                해당 범위 내의 데이터가 모두 삭제됩니다.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="date_delete()">삭제 하기</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 
+<div class="modal fade" id="idModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">주의</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                해당 아이디의 데이터가 모두 삭제됩니다.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="id_delete()">삭제 하기</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <script src="https://d3js.org/d3-array.v2.min.js"></script>
 <script src="https://d3js.org/d3-color.v1.min.js"></script>
@@ -69,7 +137,36 @@
 <script src="https://d3js.org/d3-time-format.v2.min.js"></script>
 <script src="https://d3js.org/d3-scale.v3.min.js"></script>
 <script src="https://d3js.org/d3.v4.min.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script type="text/javascript">
+    function date_delete() {
+        console.log(document.getElementById('testDatepicker1').value)
+        console.log(document.getElementById('testDatepicker2').value)
+    }
+
+    function id_delete() {
+        console.log(document.getElementById('header_id').value)
+    }
+
+    $(function() {
+        $( "#testDatepicker1" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            nextText: '다음 달',
+            prevText: '이전 달',
+            dateFormat: "yy-mm-dd"
+        });
+        $( "#testDatepicker2" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            nextText: '다음 달',
+            prevText: '이전 달',
+            dateFormat: "yy-mm-dd"
+        });
+    });
+
     function create_user() {
         var data = {}
         data.id = $('#userId').val()
@@ -112,6 +209,8 @@
         document.getElementById(cityName).style.display = "block";
         evt.currentTarget.className += " active";
     }
+
+
 
     // Get the element with id="defaultOpen" and click on it
     document.getElementById("defaultOpen").click();
